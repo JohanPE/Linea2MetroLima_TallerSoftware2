@@ -599,9 +599,22 @@
                      first count item -->
                     <div>
                         <header>
-                          <h2>Solicitar Codigo QR</h3>
-                            <input type="button" value="Solicitar" onclick="solicitar()">
-                        </header>
+                            <div class="sec-title text-center wow fadeInUp animated" data-wow-duration="700ms">
+                                <h2>¡Consigue tu código QR!</h2>
+                                <div class="devider"><i class="fa fa-heart-o fa-lg"></i></div>
+                            </div>
+                            <br>
+                            <br>
+                            <button type="button" class="btn" onclick="solicitar()" style="display: block; margin: 0 auto; font-size: 35px;">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                Solicitar
+                              </button>
+                              
+                          </header>
+                          
                         <!--<div class="form">
                           <input type="text" spellcheck="false" placeholder="ingrese el texto o la direccion URL" id="txtIdUsuario">
                           <button>Generar</button>
@@ -615,11 +628,18 @@
                       </div>
                       
                       <div id="resultadoVerificar"></div>
-                      <div id="verificar">
-                        <div class="form">
-                            <input type="text" spellcheck="false" placeholder="Ingrese su contraseña" id="txtContraseniaQR">
-                        <button onclick="solicitar2()">Verificar</button>
+                      <div id="verificar"> 
+                        <div class="form"  style="margin-top: 100px;">
+                          <input type="password" spellcheck="false" placeholder="Ingrese su contraseña" id="txtContraseniaQR">
+                          <button type="button" class="btn" onclick="solicitar2()">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            Verificar contraseña
+                          </button>
                         </div>
+                      </div>
                         
                       </div>
                       <div id="resultado"></div>
@@ -631,12 +651,25 @@
                               <p>Su Id de Usuario es:</p>
                             </header>
                             <div class="form" style="background-color: black;">
-                              <input type="text" spellcheck="false" id="resultado2Input" readonly>
-                              <button>Generador QR</button>
+                            <input type="password" spellcheck="false" id="resultado2Input" readonly>
+                              <button type="button" class="btn">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                Generador QR
+                              </button>
                               <div class="qr-code">
+                                <br>
                                 <img src="" alt="qr-code">
                                 
-                                <button id="descarga">Descargar </button>
+                                <button type="button" class="btn" id="descarga">                                
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    Descargar 
+                                </button>
                               </div>
                             </div>
                             
