@@ -5,7 +5,7 @@ class Bd{
     public function getConnectionMYSQL(){
         $servidor="localhost";
         $usuario="root";
-        $clave="09082002campos";
+        $clave="";
         $basedatos="bdmetro";
         $cnx=null;
         $cnx=new mysqli($servidor,$usuario,$clave,$basedatos);
