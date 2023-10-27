@@ -1,0 +1,75 @@
+CREATE DATABASE bdMetro;
+drop database bdmetro;
+
+USE bdMetro;
+
+-- Crear la tabla estadotarifa
+CREATE TABLE estadotarifa (
+  idestadotarifa INT NOT NULL,
+  nombre VARCHAR(100) DEFAULT NULL,
+  glosa VARCHAR(100) DEFAULT NULL,
+  PRIMARY KEY (idestadotarifa)
+);
+
+-- Crear la tabla tarifa
+CREATE TABLE tarifa (
+  idtarifa INT NOT NULL,
+  nombre VARCHAR(100) NULL,
+  precio DECIMAL(10, 2) DEFAULT 0.00,
+  idestadotarifa INT NULL,
+  PRIMARY KEY (idtarifa),
+  FOREIGN KEY (idestadotarifa) REFERENCES estadotarifa(idestadotarifa)
+);
+
+-- Crear la tabla tipodedocumento
+CREATE TABLE tipodedocumento (
+	idtipodoc INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_tipodoc VARCHAR(200),
+    glosa_tipodoc VARCHAR(200)
+);
+
+-- Crear la tabla pasajeros
+CREATE TABLE pasajeros (
+    N_identificacion INT PRIMARY KEY,
+    numero_pasajero INT AUTO_INCREMENT UNIQUE,
+    nombre VARCHAR(50) NOT NULL,
+    apellido VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    distrito VARCHAR(50) NOT NULL,
+    domicilio VARCHAR(100),
+    telefono BIGINT,
+    fechanac DATE,
+    estudiante VARCHAR(10),
+    idtipodoc INT,
+    id_tarifa INT,
+    FOREIGN KEY (idtipodoc) REFERENCES tipodedocumento(idtipodoc),
+    FOREIGN KEY (id_tarifa) REFERENCES tarifa(idtarifa)
+);
+
+-- Crear la tabla usuario
+CREATE TABLE usuario (
+	id_usuario VARCHAR(100) PRIMARY KEY,
+    usuario VARCHAR(50) UNIQUE,
+    contrasenia VARCHAR(100) NOT NULL,
+    saldo DECIMAL(10, 2) DEFAULT 0.00,
+    dni INT UNIQUE,
+    FOREIGN KEY (dni) REFERENCES pasajeros(N_identificacion)
+);
+
+-- Crear la tabla recorrido
+CREATE TABLE recorrido (
+	id_recorrido INT AUTO_INCREMENT PRIMARY KEY,
+    gastos DECIMAL(10, 2) DEFAULT 0.00,
+    fecha_viaje DATETIME,
+    id_usuario VARCHAR(100),
+    id_tarifa INT,
+    FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
+    FOREIGN KEY (id_tarifa) REFERENCES tarifa(idtarifa)
+);
+
+INSERT INTO estadotarifa (idestadotarifa, nombre, glosa) VALUES (1, 'Publico en general', 'Tarifa regular para adultos');
+INSERT INTO estadotarifa (idestadotarifa, nombre, glosa) VALUES (2, 'Estudiante', 'Tarifa reducida para estudiantes');
+
+INSERT INTO tarifa (idtarifa, nombre, precio, idestadotarifa) VALUES (1, 'Tarifa General', 1.50, 1);
+INSERT INTO tarifa (idtarifa, nombre, precio, idestadotarifa) VALUES (2, 'Tarifa Estudiante', 0.75, 2);
+
