@@ -195,5 +195,19 @@ class Marcadao{
         $IDQR = $rowIDQR['id_usuario'];
         echo $IDQR;
     }
+    public function retornarTarifa(){
+        $lista = array();
+        $base = new Bd();
+        $conexion = $base->getConnectionMYSQL();
+        $sql = "select nombre, precio from tarifa";
+        $res = $conexion->query($sql);
+    
+        if ($res) {
+            return $res->fetch_all(MYSQLI_ASSOC);
+        } else {
+            return array(); // Devuelve un array vacío si no hay resultados o hay un error
+        }
+    }
+    
 }
 ?>

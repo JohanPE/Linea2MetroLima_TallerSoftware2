@@ -54,5 +54,9 @@ class MarcaController{
         $data = new Marcadao();
         return $data->solicitarQR($obj);
     }
+    public function retornarTarifa(){
+        $data = new Marcadao();
+        return $data->retornarTarifa();
+    }
 }
 ?>
