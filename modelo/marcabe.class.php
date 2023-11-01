@@ -15,6 +15,11 @@ class Marca{
     private $saldo;
     private $idUsuario;
 
+    private $idTrabajador;
+    private $usuarioTrabajador;
+    private $clave;
+    private $idRol;
+
     public function __construct() {
         
     }
@@ -61,6 +66,18 @@ class Marca{
     public function getIdUsuario(){
         return $this->idUsuario;
     }
+    public function getIdTrabajador(){
+        return $this->idTrabajador;
+    }
+    public function getUsuarioTrabajador(){
+        return $this->usuarioTrabajador;
+    }
+    public function getClave(){
+        return $this->clave;
+    }
+    public function getIdRol(){
+        return $this->idRol;
+    }
 
     //----------------------------
     
@@ -106,5 +123,18 @@ class Marca{
     public function setIdUsuario($idUsuario){
         $this->idUsuario=$idUsuario;
     }
+    public function setIdTrabajador($idTrabajador){
+        $this->idTrabajador=$idTrabajador;
+    }
+    public function setUsuarioTrabajador($usuarioTrabajador){
+        $this->usuarioTrabajador=$usuarioTrabajador;
+    }
+    public function setClave($clave){
+        $this->clave=$clave;
+    }
+    public function setIdRol($idRol){
+        $this->idRol=$idRol;
+    }
+
 }
 ?>

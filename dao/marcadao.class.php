@@ -208,6 +208,53 @@ class Marcadao{
             return array(); // Devuelve un array vacío si no hay resultados o hay un error
         }
     }
-    
+    //-------------------------------------------------------
+
+    public function nuevoUsuarioTrabajador($usr){
+
+    }
+    public function actualizarUsuarioTrabajador($usr){
+
+    }
+    public function eliminarUsuarioTrabajador($usr){
+        
+    }
+    public function validarUsuarioTrabajador($obj){
+        /*$login=$usr->getUsuario();
+        $clave=$usr->getClave();
+
+        $base = new Bd();
+        $conexion = $base->getConnectionMYSQL();
+
+        $sql = "select count(1) registros from usuariotrabajador where usuario='$login' and clave=md5('$clave')";
+
+        $res = $conexion->query($sql);
+        while ($fila = $res->fetch_object()){
+            $cod=$fila->registros;
+        }
+        return $cod;*/
+        $usuario = $obj->getUsuarioTrabajador();
+        $contrasenia = $obj->getClave();
+
+        $base = new Bd();
+        $conexion = $base->getConnectionMYSQL();
+        $sql="select * FROM usuariotrabajador WHERE usuario = '$usuario' AND clave = md5('$contrasenia')";
+
+        $res = $conexion->query($sql);
+        
+        $filas=mysqli_num_rows($res);
+
+        if ($filas) {
+            echo "OK";
+        } else {
+            echo "<br><h3>DATOS ERRONEOS!</h3>";
+        }
+    }
+    public function getUsuarioTrabajador($nomusuario){
+
+    }
+    public function getUsuariosTrabajador(){
+
+    }
 }
 ?>
