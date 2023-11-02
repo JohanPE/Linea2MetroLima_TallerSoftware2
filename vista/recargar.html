@@ -72,9 +72,9 @@
         </tr>
     </table>
     <br>
-    <div>
+    <div class="form">
         <h1>Pago por Tarjeta</h1>
-            <table>
+            <table style ="display:flex; align-items:center; justify-content:center;">
                 <tr>
                     <td>
                     <input type = "text" placeholder = "Numero de tarjeta" id="txtNumeroTarjeta">
@@ -107,7 +107,13 @@
                 </tr>
                 <tr>
                     <td>
-                    <input type="button" value="Recargar" onclick="pagar()">
+                    <button type="button" class="btn" onclick="pagar()">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        Recargar
+                    </button>
                     </td>
                 </tr>
             </table>
