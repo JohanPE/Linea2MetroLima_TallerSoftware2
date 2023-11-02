@@ -58,5 +58,22 @@ class MarcaController{
         $data = new Marcadao();
         return $data->retornarTarifa();
     }
+    //------------------------------------------
+    public function validarUsuarioTrabajador($usr){
+        $data = new Marcadao();
+        return $data->validarUsuarioTrabajador($usr);
+    }
+    public function eliminarUsuarioTrabajador($usr){
+        $data = new Marcadao();
+        return $data->eliminarUsuarioTrabajador($usr);
+    }
+    public function actualizarUsuarioTrabajador($usr){
+        $data = new Marcadao();
+        return $data->actualizarUsuarioTrabajador($usr);
+    }
+    public function nuevoUsuarioTrabajador($usr){
+        $data = new Marcadao();
+        return $data->nuevoUsuarioTrabajador($usr);
+    }
 }
 ?>
