@@ -20,7 +20,8 @@ class Marcadao{
     
         $base = new Bd();
         $conexion = $base->getConnectionMYSQL();
-    
+
+        /*
         // Insertar el tipo de documento
         $sql1 = "INSERT INTO tipodedocumento (nombre_tipodoc, glosa_tipodoc) VALUES ('$tipoDocumento', '$tipoDocumento')";
         $res1 = $conexion->query($sql1);
@@ -30,7 +31,7 @@ class Marcadao{
         $resRetorna = $conexion->query($sqlRetorna);
         $row = $resRetorna->fetch_assoc();
         $idTipoDocumento = $row['max_id'];
-    
+        */
         // Determinar el ID de la tarifa
         if ($estudiante == "No") {
             $sqlRetorna2 = "SELECT idtarifa FROM tarifa WHERE nombre = 'Tarifa General'";
