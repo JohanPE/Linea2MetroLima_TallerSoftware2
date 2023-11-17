@@ -130,6 +130,53 @@ class Metrodao{
         //return $res;
     }
     
+    public function nuevoUsuarioTrabajador($obj) {
+        $usuariotrabajador = $obj->getUsuarioTrabajador();
+        $clave = $obj->getClave();
+        $idRol = $obj->getIdRol();
+        $dni = $obj->getDni();
+    
+        $base = new Bd();
+        $conexion = $base->getConnectionMYSQL();
+    
+        /*$sql1 = "select N_identificacion FROM pasajeros WHERE numero_pasajero = (SELECT MAX(numero_pasajero) FROM pasajeros)";
+        $res1 = $conexion->query($sql1);
+        $fila = $res1->fetch_object();
+        $item1 = new Marca();
+        $item1->setDni($fila->N_identificacion);
+    
+        // Escapar las variables para evitar la inyección de SQL
+        $usuario = $conexion->real_escape_string($usuario);
+        $contrasenia = $conexion->real_escape_string($contrasenia);
+        $dni = $conexion->real_escape_string($item1->getDni());*/
+
+        $sqlRetorna = "select idtrabajador from trabajador where N_identificacion = $dni;";
+        $resRetorna = $conexion->query($sqlRetorna);
+        $row = $resRetorna->fetch_assoc();
+        $idtrabajador = $row['idtrabajador'];
+    
+        $sql = "insert into usuariotrabajador (idtrabajador, usuario, clave, idrol) ";
+        $sql=$sql." values ($idtrabajador,'$usuariotrabajador', '$clave',$idRol)";
+        $res = $conexion->query($sql);
+
+        //-------------------------------------------------------------------------
+        
+        
+        $sql3="select * FROM usuariotrabajador WHERE usuario = '$usuariotrabajador' AND clave = '$clave'";
+
+        $res3 = $conexion->query($sql3);
+        
+        $filas=mysqli_num_rows($res3);
+
+        if ($filas) {
+            echo "OK";
+        } else {
+            echo "<br><h3>DATOS ERRONEOS!</h3>";
+        }
+
+        //return $res;
+    }
+
     public function validarUsuario($obj){
         $usuario = $obj->getUsuario();
         $contrasenia = $obj->getContrasenia();
@@ -248,9 +295,9 @@ class Metrodao{
     }
     //-------------------------------------------------------
 
-    public function nuevoUsuarioTrabajador($usr){
+    /*public function nuevoUsuarioTrabajador($usr){
 
-    }
+    }*/
     public function actualizarUsuarioTrabajador($usr){
 
     }

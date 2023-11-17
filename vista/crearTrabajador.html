@@ -15,22 +15,40 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.css">
         <link rel="stylesheet" href="style3.css">
         <script>
-            function crear(){
+            $(document).ready(function () {
+                // Obtener el valor del parámetro dni de la URL
+                const urlParams = new URLSearchParams(window.location.search);
+                const dni = urlParams.get('dni');
+
+                // Establecer el valor en la caja de texto
+                $("#dniBox").val(dni);
+
+            });
+            function crearAdministrador(){
                 crearUsuario=$("#txtCrearUsuario").val();
                 crearContrasenia = $("#txtCrearContrasenia").val();
                 repetirContrasenia =$("#txtRepetirContrasenia").val();
+                rol =$("#txtRol").val();
+                idRol = parseInt(rol);
+                dni = $("#dniBox").val();
 
-                datosCrear = {crearUsuario: crearUsuario, crearContrasenia: crearContrasenia}
+                datosCrear = {crearUsuario: crearUsuario, crearContrasenia: crearContrasenia,
+                idRol: idRol, dni:dni}
 
                 $.ajax({
                     data:datosCrear,
                     type: "post",
-                    url: "crear.php",
+                    url: "crearTrabajador.php",
                     success: function(response){
-                        //$("#resultado").html(response);
+                        $("#resultado").html(response);
                         if (response.trim() === "OK") {
-                            document.cookie = "usuario=" + usuario;
-                            window.location.href = "paginaInicio.html";
+                            if (idRol==1){
+                                window.location.href = "paginaAdministrador.html?crearUsuario=" + crearUsuario;
+                            }else if ( idRol == 2){
+                                window.location.href = "paginaTrabajador.html?crearUsuario=" + crearUsuario;
+                            }
+                            //document.cookie = "usuario=" + usuario;
+                            //window.location.href = "paginaAdministrador.html";
                         } else {
                             $("#resultado").html(response);
                         }
@@ -38,7 +56,7 @@
 
                 });
             }
-            function validarCrearUsuario(){
+            /*function validarCrearUsuario(){
                 crearUsuario=$("#txtCrearUsuario").val();
                 crearContrasenia = $("#txtCrearContrasenia").val();
                 repetirContrasenia =$("#txtRepetirContrasenia").val();
@@ -55,7 +73,7 @@
                     crear();
                     window.location.href = "paginaInicio2.html";
                 }
-            }
+            }*/
         </script>
     </head>
 
@@ -64,10 +82,23 @@
             <div class="form" style="background-color: rgba(0, 0, 0, 70%);">
                 <form class="login-form" method="post">
                     <h2></i> Crear Trabajador </h2>
+                    
+                    <input type="text" id="dniBox" placeholder="DNI" readonly>
+                    
+
                     <input type="text" placeholder="Usuario" id="txtCrearUsuario" required />
                     <input type="password" placeholder="Contraseña" id="txtCrearContrasenia" required/>
                     <input type="password" placeholder="Contraseña" id="txtRepetirContrasenia" required/>
-                    <button type="button" class="btn" onclick="validarCrearUsuario()">
+                    <div class="select-wrapper" style="color: white;">
+                        <div style="color: white;">
+                            <select name="" id="txtRol" required style="width: 100%; float: center;">
+                                <option value="00">-Administrador o trabajador-</option>
+                                <option value="1">Administrador</option>
+                                <option value="2">Trabajador</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="button" class="btn" onclick="crearAdministrador()">
                         <span></span>
                         <span></span>
                         <span></span>

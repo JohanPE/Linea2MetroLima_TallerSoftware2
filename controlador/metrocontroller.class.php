@@ -38,6 +38,10 @@ class MetroController{
         $data = new Metrodao();
         return $data->nuevoUsuario($obj);
     }
+    public function nuevoUsuarioTrabajador($obj){
+        $data = new Metrodao();
+        return $data->nuevoUsuarioTrabajador($obj);
+    }
     public function validarUsuario($obj){
         $data = new Metrodao();
         return $data->validarUsuario($obj);
@@ -75,9 +79,9 @@ class MetroController{
         $data = new Metrodao();
         return $data->actualizarUsuarioTrabajador($usr);
     }
-    public function nuevoUsuarioTrabajador($usr){
+    /*public function nuevoUsuarioTrabajador($usr){
         $data = new Metrodao();
         return $data->nuevoUsuarioTrabajador($usr);
-    }
+    }*/
 }
 ?>

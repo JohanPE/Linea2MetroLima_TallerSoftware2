@@ -19,22 +19,16 @@
     </style>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Recuperar el valor de usuario de la cookie
-            var cookies = document.cookie.split(";");
-            var usuario = "";
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = cookies[i].trim();
-                if (cookie.indexOf("usuario=") === 0) {
-                    usuario = cookie.substring("usuario=".length, cookie.length);
-                    break;
-                }
-            }
-    
-            // Establecer el valor del campo de entrada
-            var usuarioInput = document.querySelector("input[type='text'][placeholder='usuario']");
-            usuarioInput.value = usuario;
-    
-            saldo();
+            $(document).ready(function () {
+                // Obtener el valor del parámetro dni de la URL
+                const urlParams = new URLSearchParams(window.location.search);
+                const crearUsuario = urlParams.get('crearUsuario');
+
+                // Establecer el valor en la caja de texto
+                $("#txtUsuario").val(crearUsuario);
+
+            });
+
             function retornarTarifa() {
             $.ajax({
                 type: "post",
@@ -180,7 +174,7 @@
                     <table style="color:white;">
                         <tr>
                             <td>Usuario:ㅤ</td>
-                            <td> <input type="text" placeholder="usuario" id="txtUsuarioSaldo" readonly></td>
+                            <td><input type="text" id="txtUsuario" placeholder="usuario" readonly></td>
                             <td>ㅤㅤ</td>
                         </tr>
     

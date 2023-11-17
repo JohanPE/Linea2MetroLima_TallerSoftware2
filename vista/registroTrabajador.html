@@ -40,7 +40,8 @@
                         //mostrar una confirmación
                         //$("#resultado").html(response);
                         Swal.fire('Registro Exitoso', 'El usuario ha sido registrado exitosamente', 'success');
-                        window.location.href = "crearTrabajador.html";
+                        window.location.href = "crearTrabajador.html?dni=" + dni;
+                        //window.location.href = "crearTrabajador.html";
                     },
                     error: function(xhr, textStatus, errorThrown) {
                         //muestra un mensaje de error

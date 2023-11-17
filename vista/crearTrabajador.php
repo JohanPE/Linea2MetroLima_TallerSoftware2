@@ -1,17 +1,21 @@
 <?php
-require_once("../modelo/marcabe.class.php");
-require_once("../controlador/marcascontroller.class.php");
+require_once("../modelo/metrobe.class.php");
+require_once("../controlador/metrocontroller.class.php");
 session_start();
 
-$usuario = $_POST['crearUsuario'];
-$contrasenia = $_POST['crearContrasenia'];
+$usuariotrabajador = $_POST['crearUsuario'];
+$clave = $_POST['crearContrasenia'];
+$idRol = $_POST['idRol'];
+$dni = $_POST['dni'];
 
 $obj = new MetroController();
 $item = new Metro();
 
-$item->setUsuario($usuario);
-$item->setContrasenia($contrasenia);
+$item->setUsuarioTrabajador($usuariotrabajador);
+$item->setClave($clave);
+$item->setIdRol($idRol);
+$item->setDni($dni);
 
-$res = $obj->nuevoUsuario($item);
+$res = $obj->nuevoUsuarioTrabajador($item);
 
 ?>
