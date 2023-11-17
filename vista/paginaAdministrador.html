@@ -38,7 +38,7 @@
             function retornarTarifa() {
             $.ajax({
                 type: "post",
-                url: "retornarTarifa.php",
+                url: "retornarTarifaAdministrador.php",
                 success: function(response) {
                     $("#tarifaResultado").html(response);
                 }
