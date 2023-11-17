@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="icon" href="icono/Logo_linea_2_Metro_de_Lima.ico">
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Registrar</title>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" 
+        rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" 
+        crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.css">
+        <link rel="stylesheet" href="style3.css">
+        <script>
+            function registrar(){
+                nombre = $("#txtNombre").val();
+                apellido = $("#txtApellido").val();
+                tipoDocumento = $("#txtTipoDocumento").val();
+                dni = $("#txtDNI").val();
+                fechaNacimiento = $("#txtFechanac").val();
+                estudiante = $("#txtEstudiante").val();
+                email = $("#txtEmail").val();
+                distrito = $("#txtDistrito").val();
+                domicilio = $("#txtDomicilio").val();
+                telefono = $("#txtTelefono").val();
+
+                datos = {nombre: nombre, apellido: apellido, tipoDocumento: tipoDocumento,
+                dni:dni, fechaNacimiento: fechaNacimiento, estudiante: estudiante,
+                email:email, distrito: distrito, domicilio: domicilio, 
+                telefono:telefono}
+
+                $.ajax({
+                    data: datos,
+                    type: "post",
+                    url: "registroTrabajador.php",
+                    success: function(response) {
+                        //mostrar una confirmación
+                        //$("#resultado").html(response);
+                        Swal.fire('Registro Exitoso', 'El usuario ha sido registrado exitosamente', 'success');
+                        window.location.href = "crearTrabajador.html";
+                    },
+                    error: function(xhr, textStatus, errorThrown) {
+                        //muestra un mensaje de error
+                        Swal.fire('Error', 'Hubo un error al registrar el usuario. Inténtalo de nuevo.', 'error');
+                }
+            });
+        }
+
+        function validar() {
+            dni = $("#txtDNI").val();
+            nombre = $("#txtNombre").val();
+            apellido = $("#txtApellido").val();
+            fechanac = $("#txtFechanac").val();
+            email = $("#txtEmail").val();
+            distrito = $("#txtDistrito").val();
+            domicilio = $("#txtDomicilio").val();
+            telefono = $("#txtTelefono").val();
+            restriccion = /^[A-Za-z\sñÑ]+$/;
+            restriccion2 = /@(gmail\.com|hotmail\.com)$/;
+            dniValido = /^\d{8}$/;
+            telefonoValido = /^\d{9}$/;
+            fechaNacimiento = new Date(fechanac);
+            fechaActual = new Date();
+            cincoAniosAtras = new Date(fechaActual);
+            cincoAniosAtras.setFullYear(fechaActual.getFullYear() - 5);
+
+            // Obtener los valores seleccionados en los campos de Tipo de Documento y Si es estudiante
+            tipoDocumento = $("#txtTipoDocumento").val();
+            estudiante = $("#txtEstudiante").val();
+
+            if (nombre == "") {
+                Swal.fire('Error', 'Los nombres son datos obligatorios.', 'error');
+            } else if (!restriccion.test(nombre)) {
+                Swal.fire('Error', 'Datos del nombre son incorrectos', 'error');
+            } else if (apellido == "") {
+                Swal.fire('Error', 'Los apellidos son datos obligatorios.', 'error');
+            } else if (!restriccion.test(apellido)) {
+                Swal.fire('Error', 'Datos del apellido son incorrectos', 'error');
+            } else if (tipoDocumento === "00") {
+                Swal.fire('Error', 'Selecciona un Tipo de Documento válido.', 'error');
+            } else if (dni == "") {
+                Swal.fire('Error', 'El n° de documento de identificación es obligatorio.', 'error');
+            } else if (!dni.match(dniValido)) {
+                Swal.fire('Error', 'El n° de documento de identificación es incorrecto.', 'error');
+            } else if (fechanac == "") {
+                Swal.fire('Error', 'La fecha de nacimiento es obligatoria.', 'error');
+            } else if (fechaNacimiento > cincoAniosAtras) {
+                Swal.fire('Error', 'La fecha de nacimiento debe ser al menos 5 años antes de la fecha actual.', 'error');
+            } else if (estudiante === "00") {
+                Swal.fire('Error', 'Selecciona si es estudiante o no.', 'error');
+            } else if (email == "") {
+                Swal.fire('Error', 'Email es obligatorio.', 'error');
+            } else if (!restriccion2.test(email)) {
+                Swal.fire('Error', 'El email es incorrecto. Debe terminar en @gmail.com o @hotmail.com.', 'error');
+            } else if (distrito == "00") {
+                Swal.fire('Error', 'Selecciona un distrito.', 'error');
+            } else if (!telefono.match(telefonoValido)) {
+                Swal.fire('Error', 'El número de teléfono debe tener exactamente 9 dígitos.', 'error');
+            } else {
+                Swal.fire({
+                    title: 'Confirmación',
+                    text: '¿Desea continuar a la creación del usuario?',
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonText: 'Continuar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        registrar();
+                    }
+                });
+            }
+        }
+            function iniciar(){
+                window.location.href = "sesion.html";
+            }
+        </script>
+    </head>
+
+    <body style="display:flex; align-items:center; justify-content:center;  background-image: url(imagenes/fondo_principal.jpg);">
+        <div class="login-page">
+            <div class="form" style="background-color: rgba(0, 0, 0, 70%);">
+                <form class="login-form" method="post">
+                    <h2></i>Registrar Trabajador</h2>
+                    <div style="display: flex;">
+                        <input type="text" placeholder="Nombres *" id="txtNombre" required/>
+                        <p>ㅤ</p>
+                        <input type="text" placeholder="Apellidos*" id="txtApellido" required/>
+                    </div>
+    
+                    <div class="select-wrapper" style="color: white;">
+                        <div style="color: white;">
+                            <select name="" id="txtTipoDocumento" required style="width: 100%; float: center;">
+                                <option value="00">-Seleccione Tipo de Documento-</option>
+                                <option value="01">DNI</option>
+                                <option value="02">Carnet de extranjería</option>
+                                <option value="03">Pasaporte</option>
+                            </select>
+                        </div>
+                    </div>
+                    <input type="number" placeholder="N° de Identificación *" id="txtDNI" required/>
+                    <input type="date" placeholder="Fecha de Nacimiento *" id="txtFechanac" required/>
+                    <input type="email" name="" placeholder="Email *" id="txtEmail" required/> 
+                    <div class="select-wrapper" style="color: white;">
+                        <select id="txtDistrito" required style="width: 100%; float: center;">
+                            <option value="00">-Seleccione Distrito-</option>
+                            <option value="01">Ancón</option>
+                            <option value="02">Ate</option>
+                            <option value="03">Barranco</option>
+                            <option value="04">Breña</option>
+                            <option value="05">Carabayllo</option>
+                            <option value="06">Cercado de Lima</option>
+                            <option value="07">Chaclacayo</option>
+                            <option value="08">Chorrillos</option>
+                            <option value="09">Cieneguilla</option>
+                            <option value="10">Comas</option>
+                            <option value="11">El Agustino</option>
+                            <option value="12">Independencia</option>
+                            <option value="13">Jesus María</option>
+                            <option value="14">La Molina</option>
+                            <option value="15">La victoria</option>
+                            <option value="16">Lince</option>
+                            <option value="17">Los Olivos</option>
+                            <option value="18">Lurigancho</option>
+                            <option value="19">Lurín</option>
+                            <option value="20">Magdalena del Mar</option>
+                            <option value="21">Miraflores</option>
+                            <option value="22">Pachacamac</option>
+                            <option value="23">Pucusana</option>
+                            <option value="24">Pueblo libre</option>
+                            <option value="25">Puente piedra</option>
+                            <option value="26">Punta hermosa</option>
+                            <option value="27">Punta negra</option>
+                            <option value="28">Rímac</option>
+                            <option value="29">San bartolo</option>
+                            <option value="30">San Borja</option>
+                            <option value="31">San Isidro</option>
+                            <option value="32">San Juan de Lurigancho</option>
+                            <option value="33">San Juan de Miraflores</option>
+                            <option value="34">San Luis</option>
+                            <option value="35">San Martin de Porres</option>
+                            <option value="36">San Miguel</option>
+                            <option value="37">Santa Anita</option>
+                            <option value="38">Santa María del Mar</option>
+                            <option value="39">Santa Rosa</option>
+                            <option value="40">Santiago de Surco</option>
+                            <option value="41">Surquillo</option>
+                            <option value="42">Villa el Salvador</option>
+                            <option value="42">Villa María del Triunfo</option>
+                        </select>
+                    </div>
+                    <br>
+                    <div style="display: flex;">
+                        <input type="text" placeholder="Domicilio (opcional)" id="txtDomicilio"/>
+                        <p>ㅤ</p>
+                        <input type="number" placeholder="Teléfono *" id="txtTelefono" required/>
+                    </div>
+                    <button type="button" class="btn" onclick="validar()">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        Siguiente
+                    </button>
+                    <p class="message">¿Ya se ha registrado? <a href="#" onclick="iniciar()">Iniciar Sesión</a></p>
+                </form>
+            </div>
+        </div>
+        <div id="resultado"></div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </body>
+</html>

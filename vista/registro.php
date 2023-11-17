@@ -1,7 +1,7 @@
 <?php
 
-require_once("../modelo/marcabe.class.php");
-    require_once("../controlador/marcascontroller.class.php");
+require_once("../modelo/metrobe.class.php");
+    require_once("../controlador/metrocontroller.class.php");
     session_start();
     $nombre = $_POST['nombre'];
     $apellido = $_POST['apellido'];
@@ -14,8 +14,8 @@ require_once("../modelo/marcabe.class.php");
     $domicilio = $_POST['domicilio'];
     $telefono = $_POST['telefono'];
 
-    $obj = new MarcaController();
-    $item = new Marca();
+    $obj = new MetroController();
+    $item = new Metro();
 
     $item->setTipoDocumento($tipoDocumento);
     $item->setNombre($nombre);

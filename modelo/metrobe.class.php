@@ -1,5 +1,5 @@
 <?php
-class Marca{
+class Metro{
     private $tipoDocumento;
     private $fechaNacimiento;
     private $estudiante;

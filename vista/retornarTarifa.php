@@ -1,9 +1,9 @@
 <?php
-require_once("../modelo/marcabe.class.php");
-require_once("../controlador/marcascontroller.class.php");
+require_once("../modelo/metrobe.class.php");
+require_once("../controlador/metrocontroller.class.php");
 session_start();
 
-$obj = new MarcaController(); // Crear una instancia de la clase
+$obj = new MetroController(); // Crear una instancia de la clase
 $res = $obj->retornarTarifa(); // Llamar al método en la instancia
 
 //print_r($res); // Imprimir el resultado

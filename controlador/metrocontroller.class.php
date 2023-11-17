@@ -1,78 +1,82 @@
 <?php
-require_once("../dao/marcadao.class.php");
-require_once("../modelo/marcabe.class.php");
+require_once("../dao/metrodao.class.php");
+require_once("../modelo/metrobe.class.php");
 
-class MarcaController{
+class MetroController{
     public function __construct() {
         
     }
     public function listarTodos(){
-        $data = new Marcadao();
+        $data = new Metrodao();
         return $data->listaMarcas();
     }
     public function listarPornombre($nom){
-        $data = new Marcadao();
+        $data = new Metrodao();
         return $data->listaMarcasxnombre($nom);
     }
     public function obtieneMarca($id){
-        $data = new Marcadao();
+        $data = new Metrodao();
         return $data->obtieneMarca($id);
     }
     public function actualizaMarca($obj){
-        $data = new Marcadao();
+        $data = new Metrodao();
         return $data->actualizaMarca($obj);
     }
     public function eliminaMarca($obj){
-        $data = new Marcadao();
+        $data = new Metrodao();
         return $data->eliminaMarca($obj);
     }
     public function nuevoPasajero($obj){
-        $data = new Marcadao();
+        $data = new Metrodaoo();
         return $data->nuevoPasajero($obj);
     }
+    public function nuevoTrabajador($obj){
+        $data = new Metrodao();
+        return $data->nuevoTrabajador($obj);
+    }
     public function nuevoUsuario($obj){
-        $data = new Marcadao();
+        $data = new Metrodao();
         return $data->nuevoUsuario($obj);
     }
     public function validarUsuario($obj){
-        $data = new Marcadao();
+        $data = new Metrodao();
         return $data->validarUsuario($obj);
     }
     public function retornarSaldo($obj){
-        $data = new Marcadao();
+        $data = new Metrodao();
         return $data->retornarSaldo($obj);
     }
     public function recargar($obj){
-        $data = new Marcadao();
+        $data = new Metrodao();
         return $data->recargar($obj);
     }
     public function descontar($obj){
-        $data = new Marcadao();
+        $data = new Metrodao();
         return $data->descontar($obj);
     }
     public function solicitarQR($obj){
-        $data = new Marcadao();
+        $data = new Metrodao();
         return $data->solicitarQR($obj);
     }
     public function retornarTarifa(){
-        $data = new Marcadao();
+        $data = new Metrodao();
         return $data->retornarTarifa();
     }
     //------------------------------------------
     public function validarUsuarioTrabajador($usr){
-        $data = new Marcadao();
+        $data = new Metrodao();
         return $data->validarUsuarioTrabajador($usr);
     }
     public function eliminarUsuarioTrabajador($usr){
-        $data = new Marcadao();
+        $data = new Metrodao();
         return $data->eliminarUsuarioTrabajador($usr);
     }
     public function actualizarUsuarioTrabajador($usr){
-        $data = new Marcadao();
+        $data = new Metrodao();
         return $data->actualizarUsuarioTrabajador($usr);
     }
     public function nuevoUsuarioTrabajador($usr){
-        $data = new Marcadao();
+        $data = new Metrodao();
         return $data->nuevoUsuarioTrabajador($usr);
     }
 }

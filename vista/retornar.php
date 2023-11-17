@@ -1,12 +1,12 @@
 <?php
-require_once("../modelo/marcabe.class.php");
-    require_once("../controlador/marcascontroller.class.php");
+require_once("../modelo/metrobe.class.php");
+    require_once("../controlador/metrocontroller.class.php");
     session_start();
 
     $usuarioSaldo = $_POST['usuarioSaldo'];
     
-    $obj = new MarcaController();
-    $item = new Marca();
+    $obj = new MetroController();
+    $item = new Metro();
 
     $item->setUsuario($usuarioSaldo);
 

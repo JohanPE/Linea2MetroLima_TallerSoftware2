@@ -1,8 +1,8 @@
 <?php
 require_once("../dao/bd.class.php");
-require_once("../modelo/marcabe.class.php");
+require_once("../modelo/metrobe.class.php");
 
-class Marcadao{
+class Metrodao{
     public function __construct() {
         
     }
@@ -44,14 +44,51 @@ class Marcadao{
         $idTarifa = $row2['idtarifa'];
     
         // Insertar los datos del pasajero
-        $sql2 = "INSERT INTO pasajeros (N_identificacion, nombre, apellido, email, distrito, domicilio, telefono, fechanac, estudiante, idtipodoc, id_tarifa) ";
-        $sql2 .= "VALUES ('$dni', '$nombre', '$apellido', '$email', '$distrito', '$domicilio', '$telefono', '$fechaNacimiento', '$estudiante', '$idTipoDocumento', '$idTarifa')";
+        $sql2 = "INSERT INTO pasajeros (idtipodoc, N_identificacion, nombre, apellido, email, id_distrito, domicilio, telefono, fechanac, estudiante, id_tarifa) ";
+        $sql2 = $sql2. "VALUES ('$tipoDocumento', '$dni', '$nombre', '$apellido', '$email', '$distrito', '$domicilio', '$telefono', '$fechaNacimiento', '$estudiante', '$idTarifa')";
     
         $res2 = $conexion->query($sql2);
     
         return $res2;
     }
     
+    public function nuevoTrabajador($obj) {
+        $nombre = $obj->getNombre();
+        $apellido = $obj->getApellido();
+        $tipoDocumento = $obj->getTipoDocumento();
+        $dni = $obj->getDni();
+        $fechaNacimiento = $obj->getFechaNacimiento();
+        $email = $obj->getEmail();
+        $distrito = $obj->getDistrito();
+        $domicilio = $obj->getDomicilio();
+        $telefono = $obj->getTelefono();
+    
+        $base = new Bd();
+        $conexion = $base->getConnectionMYSQL();
+
+        /*
+        // Insertar el tipo de documento
+        $sql1 = "INSERT INTO tipodedocumento (nombre_tipodoc, glosa_tipodoc) VALUES ('$tipoDocumento', '$tipoDocumento')";
+        $res1 = $conexion->query($sql1);
+    
+        // Obtener el ID del tipo de documento recién insertado
+        $sqlRetorna = "SELECT MAX(idtipodoc) AS max_id FROM tipodedocumento";
+        $resRetorna = $conexion->query($sqlRetorna);
+        $row = $resRetorna->fetch_assoc();
+        $idTipoDocumento = $row['max_id'];
+        */
+        // Determinar el ID de la tarifa
+
+        // Insertar los datos del pasajero
+        $sql2 = "INSERT INTO trabajador (idtipodoc, N_identificacion, nombre, apellido, email, id_distrito, domicilio, telefono, fechanac) ";
+        $sql2 = $sql2. "VALUES ('$tipoDocumento', '$dni', '$nombre', '$apellido', '$email', '$distrito', '$domicilio', '$telefono', '$fechaNacimiento')";
+    
+        $res2 = $conexion->query($sql2);
+    
+        return $res2;
+    }
+    
+
 
     public function nuevoUsuario($obj) {
         $usuario = $obj->getUsuario();
