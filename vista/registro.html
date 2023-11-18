@@ -40,7 +40,7 @@
                             //mostrar una confirmación
                             //$("#resultado").html(response);
                             Swal.fire('Registro Exitoso', 'El usuario ha sido registrado exitosamente', 'success');
-                            window.location.href = "crear.html";
+                            window.location.href = "crear.html?dni=" + dni;
                         },
                         error: function(xhr, textStatus, errorThrown) {
                             //muestra un mensaje de error

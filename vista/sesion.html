@@ -24,10 +24,12 @@
                 $.ajax({
                     data:datosIniciar,
                     type: "post",
-                    url: "iniciar.php",
+                    url: "sesion.php",
                     success: function(response){
                         if (response.trim() === "OK") {
-                            document.cookie = "usuario=" + usuario;
+                            //document.cookie = "usuario=" + usuario;
+                            window.location.href = "paginaInicio2.html?Usuario=" + usuario;
+                            
                             //popup de éxito
                             Swal.fire({
                                 icon: 'success',

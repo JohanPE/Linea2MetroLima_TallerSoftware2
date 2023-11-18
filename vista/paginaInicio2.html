@@ -19,27 +19,23 @@
     </style>
     <script>
         function recargar(){
-            window.location.href = "recargar.html";
+            window.location.href = "recargar.html?Usuario=" + $("#txtUsuarioSaldo").val();
             
         }
     
         document.addEventListener("DOMContentLoaded", function() {
-            // Recuperar el valor de usuario de la cookie
-            var cookies = document.cookie.split(";");
-            var usuario = "";
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = cookies[i].trim();
-                if (cookie.indexOf("usuario=") === 0) {
-                    usuario = cookie.substring("usuario=".length, cookie.length);
-                    break;
-                }
-            }
-    
-            // Establecer el valor del campo de entrada
-            var usuarioInput = document.querySelector("input[type='text'][placeholder='usuario']");
-            usuarioInput.value = usuario;
-    
-            saldo();
+
+            $(document).ready(function () {
+                // Obtener el valor del parámetro dni de la URL
+                const urlParams = new URLSearchParams(window.location.search);
+                const crearUsuario = urlParams.get('Usuario');
+
+                // Establecer el valor en la caja de texto
+                $("#txtUsuarioSaldo").val(crearUsuario);
+
+                saldo();
+            });
+            
         });
     
         function saldo(){

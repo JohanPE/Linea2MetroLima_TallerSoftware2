@@ -22,18 +22,18 @@ if($res > 0){
     header('Location: metro.html');
 }*/
 
-require_once("../modelo/marcabe.class.php");
-    require_once("../controlador/marcascontroller.class.php");
+require_once("../modelo/metrobe.class.php");
+    require_once("../controlador/metrocontroller.class.php");
     session_start();
 
-    $usuario = $_POST['usuarioTrabajador'];
-    $contrasenia = $_POST['claveTrabajador'];
+    $usuariotrabajador = $_POST['usuarioTrabajador'];
+    $clave = $_POST['claveTrabajador'];
 
-    $obj = new MarcaController();
-    $item = new Marca();
+    $obj = new MetroController();
+    $item = new Metro();
 
-    $item->setUsuarioTrabajador($usuario);
-    $item->setClave($contrasenia);
+    $item->setUsuarioTrabajador($usuariotrabajador);
+    $item->setClave($clave);
 
     $res = $obj->validarUsuarioTrabajador($item);
     //print_r($res);
@@ -41,6 +41,8 @@ require_once("../modelo/marcabe.class.php");
     //$lista = $obj->listarPornombre("SS");
     //print_r($lista);
     //include("mostrar.php");
+
+    //echo $res;
     
 
 ?>

@@ -22,7 +22,7 @@
             $(document).ready(function () {
                 // Obtener el valor del parámetro dni de la URL
                 const urlParams = new URLSearchParams(window.location.search);
-                const crearUsuario = urlParams.get('crearUsuario');
+                const crearUsuario = urlParams.get('Usuario');
 
                 // Establecer el valor en la caja de texto
                 $("#txtUsuario").val(crearUsuario);
@@ -75,7 +75,7 @@
         }
     
         function solicitar2(){
-            usuarioQR = $("#txtUsuarioSaldo").val();
+            usuarioQR = $("#txtUsuario").val();
             contraseniaQR = $("#txtContraseniaQR").val();
             datosQR = { usuarioQR: usuarioQR, contraseniaQR: contraseniaQR };
     

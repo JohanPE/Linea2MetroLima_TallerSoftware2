@@ -24,9 +24,10 @@
                 $.ajax({
                     data:datosIniciar,
                     type: "post",
-                    url: "acceso.php",
+                    url: "sesionTrabajador.php",
                     success: function(response){
-                        if (response.trim() === "OK") {
+                        $("#resultado").html(response);
+                        if (response.trim() === "1") {
                             //document.cookie = "usuario=" + usuario;
                             //popup de éxito
                             Swal.fire({
@@ -37,9 +38,25 @@
                                 timer: 1500
                             });
                             setTimeout(function() {
-                                window.location.href = "paginaAdministrador.html";
+                                window.location.href = "paginaAdministrador.html?Usuario=" + usuarioTrabajador;
+                                //window.location.href = "paginaAdministrador.html?Usuario=" + usuariotrabajador;
                             }, 1500);
-                        } else {
+                        } else if(response.trim() === "2"){
+                            //document.cookie = "usuario=" + usuario;
+                            //popup de éxito
+                            Swal.fire({
+                                icon: 'success',
+                                title: '¡Éxito!',
+                                text: 'Inicio de sesión exitoso',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            setTimeout(function() {
+                                window.location.href = "paginaTrabajador.html?Usuario=" + usuarioTrabajador;
+                                //window.location.href = "paginaAdministrador.html?Usuario=" + usuariotrabajador;
+                            }, 1500);
+                        } 
+                        else {
                             //popup de error
                             Swal.fire({
                                 icon: 'error',
@@ -72,7 +89,7 @@
             }
 
             function registrarse(){
-                window.location.href = "registro.html";
+                window.location.href = "registroTrabajador.html";
             }
         </script>
     </head>
@@ -84,7 +101,7 @@
                     <h2></i> Ingresar </h2>
                     <input type="text" placeholder="Usuario" id="txtUsuarioTrabajador" required />
                     <input type="password" placeholder="Contraseña" id="txtClaveTrabajador" required/>
-                    <a class="btn" href="#" onclick="validarUsuario()">
+                    <a class="btn" href="#" onclick=" validarUsuario()">
                         <span></span>
                         <span></span>
                         <span></span>

@@ -93,11 +93,12 @@ class Metrodao{
     public function nuevoUsuario($obj) {
         $usuario = $obj->getUsuario();
         $contrasenia = $obj->getContrasenia();
-    
+        $dni = $obj->getDni();
+
         $base = new Bd();
         $conexion = $base->getConnectionMYSQL();
     
-        $sql1 = "select N_identificacion FROM pasajeros WHERE numero_pasajero = (SELECT MAX(numero_pasajero) FROM pasajeros)";
+        /*$sql1 = "select N_identificacion FROM pasajeros WHERE numero_pasajero = (SELECT MAX(numero_pasajero) FROM pasajeros)";
         $res1 = $conexion->query($sql1);
         $fila = $res1->fetch_object();
         $item1 = new Marca();
@@ -106,7 +107,7 @@ class Metrodao{
         // Escapar las variables para evitar la inyección de SQL
         $usuario = $conexion->real_escape_string($usuario);
         $contrasenia = $conexion->real_escape_string($contrasenia);
-        $dni = $conexion->real_escape_string($item1->getDni());
+        $dni = $conexion->real_escape_string($item1->getDni());*/
     
         $sql = "insert into usuario (id_usuario, usuario, contrasenia, saldo, dni) ";
         $sql=$sql." values (CONCAT('$usuario', '$contrasenia', '$dni'),'$usuario', '$contrasenia', 0.00,'$dni')";
@@ -127,7 +128,7 @@ class Metrodao{
             echo "<br><h3>DATOS ERRONEOS!</h3>";
         }
 
-        //return $res;
+       //return $res;
     }
     
     public function nuevoUsuarioTrabajador($obj) {
@@ -195,6 +196,42 @@ class Metrodao{
             echo "<br><h3>DATOS ERRONEOS!</h3>";
         }
         //return $res;
+    }
+
+    public function validarUsuarioTrabajador($obj){
+        $usuariotrabajador = $obj->getUsuarioTrabajador();
+        $clave = $obj->getClave();
+
+        $base = new Bd();
+        $conexion = $base->getConnectionMYSQL();
+        //$sql="select idrol FROM usuariotrabajador WHERE usuario = '$usuariotrabajador' AND clave = '$clave'";
+
+        //$res = $conexion->query($sql);
+        
+        /*$filas=mysqli_num_rows($res);
+
+        if ($filas) {
+            echo "OK";
+        } else {
+            echo "<br><h3>DATOS ERRONEOS!</h3>";
+        }*/
+
+
+        $sqlRetorna = "select idrol FROM usuariotrabajador WHERE usuario = '$usuariotrabajador' AND clave = '$clave'";
+        $resRetorna = $conexion->query($sqlRetorna);
+        $row = $resRetorna->fetch_assoc();
+        $idrol = $row['idrol'];
+
+        if($idrol == 1){
+            echo "1";
+            //echo "window.location.href = 'paginaAdministrador.html?Usuario=' + $usuariotrabajador;";
+        }else if($idrol == 2){
+            echo "2";
+            //echo "<script>window.location.href = 'paginaTrabajador.html?Usuario=' + $usuariotrabajador;</script>";
+        }
+
+        
+        //return $idrol;
     }
     
 
@@ -304,37 +341,7 @@ class Metrodao{
     public function eliminarUsuarioTrabajador($usr){
         
     }
-    public function validarUsuarioTrabajador($obj){
-        /*$login=$usr->getUsuario();
-        $clave=$usr->getClave();
-
-        $base = new Bd();
-        $conexion = $base->getConnectionMYSQL();
-
-        $sql = "select count(1) registros from usuariotrabajador where usuario='$login' and clave=md5('$clave')";
-
-        $res = $conexion->query($sql);
-        while ($fila = $res->fetch_object()){
-            $cod=$fila->registros;
-        }
-        return $cod;*/
-        $usuario = $obj->getUsuarioTrabajador();
-        $contrasenia = $obj->getClave();
-
-        $base = new Bd();
-        $conexion = $base->getConnectionMYSQL();
-        $sql="select * FROM usuariotrabajador WHERE usuario = '$usuario' AND clave = md5('$contrasenia')";
-
-        $res = $conexion->query($sql);
-        
-        $filas=mysqli_num_rows($res);
-
-        if ($filas) {
-            echo "OK";
-        } else {
-            echo "<br><h3>DATOS ERRONEOS!</h3>";
-        }
-    }
+    
     public function getUsuarioTrabajador($nomusuario){
 
     }

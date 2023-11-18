@@ -15,12 +15,22 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.css">
         <link rel="stylesheet" href="style3.css">
         <script>
+            $(document).ready(function () {
+                // Obtener el valor del parámetro dni de la URL
+                const urlParams = new URLSearchParams(window.location.search);
+                const dni = urlParams.get('dni');
+
+                // Establecer el valor en la caja de texto
+                $("#dniBox").val(dni);
+
+            });
             function crear(){
                 crearUsuario=$("#txtCrearUsuario").val();
                 crearContrasenia = $("#txtCrearContrasenia").val();
                 repetirContrasenia =$("#txtRepetirContrasenia").val();
+                dni = $("#dniBox").val();
 
-                datosCrear = {crearUsuario: crearUsuario, crearContrasenia: crearContrasenia}
+                datosCrear = {crearUsuario: crearUsuario, crearContrasenia: crearContrasenia, dni:dni}
 
                 $.ajax({
                     data:datosCrear,
@@ -29,10 +39,13 @@
                     success: function(response){
                         //$("#resultado").html(response);
                         if (response.trim() === "OK") {
-                            document.cookie = "usuario=" + usuario;
-                            window.location.href = "paginaInicio.html";
+                            //document.cookie = "usuario=" + usuario;
+                            //$("#resultado").html(response);
+                            //window.location.href = "paginaInicio.html";
+                            window.location.href = "paginaInicio2.html?Usuario=" + crearUsuario;
                         } else {
-                            $("#resultado").html(response);
+                            alert("El usuario ya existe");
+                            //$("#resultado").html(response);
                         }
                     }
 
@@ -64,10 +77,11 @@
             <div class="form" style="background-color: rgba(0, 0, 0, 70%);">
                 <form class="login-form" method="post">
                     <h2></i> Crear Usuario </h2>
+                    <input type="text" id="dniBox" placeholder="DNI" readonly>
                     <input type="text" placeholder="Usuario" id="txtCrearUsuario" required />
                     <input type="password" placeholder="Contraseña" id="txtCrearContrasenia" required/>
                     <input type="password" placeholder="Contraseña" id="txtRepetirContrasenia" required/>
-                    <button type="button" class="btn" onclick="validarCrearUsuario()">
+                    <button type="button" class="btn" onclick="crear()">
                         <span></span>
                         <span></span>
                         <span></span>

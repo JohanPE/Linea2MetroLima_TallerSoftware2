@@ -37,10 +37,10 @@
             });
 
             alert ("Recarga realizada!");
-            window.location.href = "paginaInicio2.html";
+            window.location.href = "paginaInicio2.html?Usuario=" + usuarioPagar;
         }
 
-        document.addEventListener("DOMContentLoaded", function() {
+        /*document.addEventListener("DOMContentLoaded", function() {
             // Recuperar el valor de usuario de la cookie
             var cookies = document.cookie.split(";");
             var usuario = "";
@@ -57,6 +57,16 @@
             usuarioInput.value = usuario;
 
         
+        });*/
+
+        $(document).ready(function () {
+                // Obtener el valor del parámetro dni de la URL
+                const urlParams = new URLSearchParams(window.location.search);
+                const usuario = urlParams.get('Usuario');
+
+                // Establecer el valor en la caja de texto
+                $("#txtUsuarioPagar").val(usuario);
+
         });
     </script>
 </head>

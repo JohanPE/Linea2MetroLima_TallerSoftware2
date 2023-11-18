@@ -43,9 +43,9 @@
                         $("#resultado").html(response);
                         if (response.trim() === "OK") {
                             if (idRol==1){
-                                window.location.href = "paginaAdministrador.html?crearUsuario=" + crearUsuario;
+                                window.location.href = "paginaAdministrador.html?Usuario=" + crearUsuario;
                             }else if ( idRol == 2){
-                                window.location.href = "paginaTrabajador.html?crearUsuario=" + crearUsuario;
+                                window.location.href = "paginaTrabajador.html?Usuario=" + crearUsuario;
                             }
                             //document.cookie = "usuario=" + usuario;
                             //window.location.href = "paginaAdministrador.html";

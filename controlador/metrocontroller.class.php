@@ -27,7 +27,7 @@ class MetroController{
         return $data->eliminaMarca($obj);
     }
     public function nuevoPasajero($obj){
-        $data = new Metrodaoo();
+        $data = new Metrodao();
         return $data->nuevoPasajero($obj);
     }
     public function nuevoTrabajador($obj){
