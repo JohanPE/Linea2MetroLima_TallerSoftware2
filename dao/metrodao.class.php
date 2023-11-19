@@ -88,6 +88,66 @@ class Metrodao{
         return $res2;
     }
     
+    public function nuevaTarifa($obj) {
+        $nombreTarifa = $obj->getNombreTarifa();
+        $precioTarifa = $obj->getPrecioTarifa();
+        $idEstadoTarifa = $obj->getIdEstadoTarifa();
+
+        $base = new Bd();
+        $conexion = $base->getConnectionMYSQL();
+
+        /*
+        // Insertar el tipo de documento
+        $sql1 = "INSERT INTO tipodedocumento (nombre_tipodoc, glosa_tipodoc) VALUES ('$tipoDocumento', '$tipoDocumento')";
+        $res1 = $conexion->query($sql1);
+    
+        // Obtener el ID del tipo de documento recién insertado
+        */
+        $sqlRetorna = "SELECT MAX(idtarifa) AS max_id FROM tarifa";
+        $resRetorna = $conexion->query($sqlRetorna);
+        $row = $resRetorna->fetch_assoc();
+        $idtarifa = $row['max_id'];
+        
+        // Determinar el ID de la tarifa
+
+        // Insertar los datos del pasajero
+        $sql2 = "INSERT INTO tarifa (idtarifa, nombre, precio, idestadotarifa) ";
+        $sql2 = $sql2. "VALUES ($idtarifa + 1, '$nombreTarifa', '$precioTarifa', $idEstadoTarifa)";
+    
+        $res2 = $conexion->query($sql2);
+    
+        return $res2;
+    }
+
+    public function nuevoEstadoTarifa($obj) {
+        $nombreEstadoTarifa = $obj->getNombreEstadoTarifa();
+        $glosaEstadoTarifa = $obj->getGlosaEstadoTarifa();
+
+        $base = new Bd();
+        $conexion = $base->getConnectionMYSQL();
+
+        /*
+        // Insertar el tipo de documento
+        $sql1 = "INSERT INTO tipodedocumento (nombre_tipodoc, glosa_tipodoc) VALUES ('$tipoDocumento', '$tipoDocumento')";
+        $res1 = $conexion->query($sql1);
+    
+        // Obtener el ID del tipo de documento recién insertado
+        */
+        $sqlRetorna = "SELECT MAX(idestadotarifa) AS max_id FROM estadotarifa";
+        $resRetorna = $conexion->query($sqlRetorna);
+        $row = $resRetorna->fetch_assoc();
+        $idestadotarifa = $row['max_id'];
+        
+        // Determinar el ID de la tarifa
+
+        // Insertar los datos del pasajero
+        $sql2 = "INSERT INTO estadotarifa (idestadotarifa, nombre, glosa) ";
+        $sql2 = $sql2. "VALUES ($idestadotarifa + 1, '$nombreEstadoTarifa', '$glosaEstadoTarifa')";
+    
+        $res2 = $conexion->query($sql2);
+    
+        return $res2;
+    }
 
 
     public function nuevoUsuario($obj) {
@@ -321,7 +381,7 @@ class Metrodao{
         $lista = array();
         $base = new Bd();
         $conexion = $base->getConnectionMYSQL();
-        $sql = "select nombre, precio from tarifa";
+        $sql = "select * from tarifa";
         $res = $conexion->query($sql);
     
         if ($res) {
@@ -329,6 +389,62 @@ class Metrodao{
         } else {
             return array(); // Devuelve un array vacío si no hay resultados o hay un error
         }
+    }
+
+    public function eliminarTarifa($obj){
+        $idtarifa= $obj->getIdTarifa();
+        $lista = array();
+        $base = new Bd();
+        $conexion = $base->getConnectionMYSQL();
+
+        /*$sqlidusuario = "select idusuario from usuario where nombreusuario = '$usuario'";
+        $residresultado = $conexion->query($sqlidresultado);
+        $row = $residresultado->fetch_assoc();
+        $idusuario = $row['idusuario'];*/
+
+        $sql = "delete from tarifa where idtarifa = $idtarifa;";
+        $res = $conexion->query($sql);
+        /*if ($res) {
+            return $res->fetch_all(MYSQLI_ASSOC);
+        } else {
+            return array(); // Devuelve un array vacío si no hay resultados o hay un error
+        }*/
+        return $res;
+    }
+
+    public function retornarEstadoTarifa(){
+        $lista = array();
+        $base = new Bd();
+        $conexion = $base->getConnectionMYSQL();
+        $sql = "select * from estadotarifa";
+        $res = $conexion->query($sql);
+    
+        if ($res) {
+            return $res->fetch_all(MYSQLI_ASSOC);
+        } else {
+            return array(); // Devuelve un array vacío si no hay resultados o hay un error
+        }
+    }
+
+    public function eliminarEstadoTarifa($obj){
+        $idestadotarifa= $obj->getIdEstadoTarifa();
+        $lista = array();
+        $base = new Bd();
+        $conexion = $base->getConnectionMYSQL();
+
+        /*$sqlidusuario = "select idusuario from usuario where nombreusuario = '$usuario'";
+        $residresultado = $conexion->query($sqlidresultado);
+        $row = $residresultado->fetch_assoc();
+        $idusuario = $row['idusuario'];*/
+
+        $sql = "delete from estadotarifa where idestadotarifa = $idestadotarifa;";
+        $res = $conexion->query($sql);
+        /*if ($res) {
+            return $res->fetch_all(MYSQLI_ASSOC);
+        } else {
+            return array(); // Devuelve un array vacío si no hay resultados o hay un error
+        }*/
+        return $res;
     }
     //-------------------------------------------------------
 

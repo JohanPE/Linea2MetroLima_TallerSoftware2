@@ -20,6 +20,15 @@ class Metro{
     private $clave;
     private $idRol;
 
+    private $idTarifa;
+    private $nombreTarifa;
+    private $precioTarifa;
+
+    private $idEstadoTarifa;
+    private $nombreEstadoTarifa;
+    private $glosaEstadoTarifa;
+
+
     public function __construct() {
         
     }
@@ -78,6 +87,24 @@ class Metro{
     public function getIdRol(){
         return $this->idRol;
     }
+    public function getIdTarifa(){
+        return $this->idTarifa;
+    }
+    public function getNombreTarifa(){
+        return $this->nombreTarifa;
+    }
+    public function getPrecioTarifa(){
+        return $this->precioTarifa;
+    }
+    public function getIdEstadoTarifa(){
+        return $this->idEstadoTarifa;
+    }
+    public function getNombreEstadoTarifa(){
+        return $this->nombreEstadoTarifa;
+    }
+    public function getGlosaEstadoTarifa(){
+        return $this->glosaEstadoTarifa;
+    }
 
     //----------------------------
     
@@ -135,6 +162,23 @@ class Metro{
     public function setIdRol($idRol){
         $this->idRol=$idRol;
     }
-
+    public function setIdTarifa($idTarifa){
+        $this->idTarifa=$idTarifa;
+    }
+    public function setNombreTarifa($nombreTarifa){
+        $this->nombreTarifa=$nombreTarifa;
+    }
+    public function setPrecioTarifa($precioTarifa){
+        $this->precioTarifa=$precioTarifa;
+    }
+    public function setIdEstadoTarifa($idEstadoTarifa){
+        $this->idEstadoTarifa=$idEstadoTarifa;
+    }
+    public function setNombreEstadoTarifa($nombreEstadoTarifa){
+        $this->nombreEstadoTarifa=$nombreEstadoTarifa;
+    }
+    public function setGlosaEstadoTarifa($glosaEstadoTarifa){
+        $this->glosaEstadoTarifa=$glosaEstadoTarifa;
+    }
 }
 ?>

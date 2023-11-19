@@ -27,21 +27,48 @@
                 // Establecer el valor en la caja de texto
                 $("#txtUsuario").val(crearUsuario);
 
+
+                
             });
 
             function retornarTarifa() {
-            $.ajax({
-                type: "post",
-                url: "retornarTarifaAdministrador.php",
-                success: function(response) {
-                    $("#tarifaResultado").html(response);
-                }
-            });
-        }
+                $.ajax({
+                    type: "post",
+                    url: "retornarTarifaAdministrador.php",
+                    success: function(response) {
+                        $("#tarifaResultado").html(response);
+                    }
+                });
+                
+            }
+            function retornarEstadoTarifa() {
+                $.ajax({
+                    type: "post",
+                    url: "retornarEstadoTarifaAdministrador.php",
+                    success: function(response) {
+                        $("#estadoTarifaResultado").html(response);
+                    }
+                });
+                
+            }
+            function opcionEstadoTarifa() {
+                $.ajax({
+                    type: "post",
+                    url: "opcionEstadoTarifa.php",
+                    success: function(response) {
+                        $("#opcionesEstadoTarifa").html(response);
+                    }
+                });
+                
+            }
 
-        retornarTarifa(); 
+            retornarTarifa(); 
+            retornarEstadoTarifa();
+            opcionEstadoTarifa();
         });
-    
+        
+
+
         function saldo(){
     
             usuarioSaldo = $("#txtUsuarioSaldo").val();
@@ -55,6 +82,44 @@
                     document.getElementById('txtSaldo').value = response;
                 }
             });
+        }
+
+        function insertarTarifa(){
+            nombreTarifa = $("#nombreTarifa").val();
+            precioTarifa = $("#precioTarifa").val();
+            idEstadoTarifa = parseInt($("#estado").val());
+            datosTarifa = { nombreTarifa: nombreTarifa, precioTarifa: precioTarifa, idEstadoTarifa: idEstadoTarifa};
+
+            
+            $.ajax({
+                data: datosTarifa,
+                type: "post",
+                url: "nuevaTarifa.php",
+                success: function(response) {
+                    $("#resultadoError2").html(response);
+                    //document.getElementById('txtSaldo').value = response;
+                }
+            });
+            location.reload();
+        }
+
+        function insertarEstadoTarifa(){
+
+            //alert("funciona boton");
+            nombreEstadoTarifa = $("#nombreEstadoTarifa").val();
+            glosaEstadoTarifa = $("#glosaEstadoTarifa").val();
+            datosTarifa = { nombreEstadoTarifa: nombreEstadoTarifa, glosaEstadoTarifa: glosaEstadoTarifa};
+
+            $.ajax({
+                data: datosTarifa,
+                type: "post",
+                url: "nuevoEstadoTarifa.php",
+                success: function(response) {
+                    $("#resultadoError").html(response);
+                    //document.getElementById('txtSaldo').value = response;
+                }
+            });
+            location.reload();
         }
     
         function solicitar(){
@@ -319,9 +384,9 @@
         <section id="tarifas" class="works clearfix">
             <div class="container">
                 <div class="row">
-    
+                    
                     <div class="sec-title text-center">
-                        <h2>Tarifas</h2>
+                        <h2>Estado tarifas</h2>
                         <div class="devider"><img style="width: 40px; height: 40px;" src="imagenes/tren.png" alt=""></div>
                     </div>
     
@@ -332,16 +397,16 @@
                         <table>
                             <tr>
                                 <td>
-                                    <input type="text" name="" id="" placeholder="Nombre Tarifa" readonly >
+                                    <input type="text" name="" id="nombreEstadoTarifa" placeholder="Nombre Estado Tarifa">
                                 </td>
                                 <td><div style="width: 20px;"></div></td>
                                 <td>
-                                    <input type="text" name="" id="" placeholder="Valor Precio" readonly >
+                                    <input type="text" name="" id="glosaEstadoTarifa" placeholder="Glosa Estado Tarifa">
                                 </td>
                                 <td><div style="width: 20px;"></div></td>
                                 <td>
                                     <button style="display: flex;
-                                    align-items: center; justify-content: center; margin-top:5px; margin-left:10px ;" type="button" class="btn" onclick="recargar()"> 
+                                    align-items: center; justify-content: center; margin-top:5px; margin-left:10px ;" type="button" class="btn" onclick="insertarEstadoTarifa()"> 
                                     <div></div>
                                     <span></span>
                                     <span></span>
@@ -354,6 +419,66 @@
                             </tr>
                         </table>
                     </div>
+                    <div id="resultadoError"></div>
+                    <br>
+                    <div id="estadoTarifaResultado">
+                        <!--<table class="table">
+                            <tr style="font-size: 20px; text-align: center;">
+                                <td>Tarifa Adulto</td>
+                                <td>Tarifa Estudiante</td>
+                            </tr>
+                            <tr style="font-size: 15px; text-align: center;">
+                                <td>Dirigido al público en general</td>
+                                <td>Dirigido a Escolares, universitarios <br> y alumnos de institutos superiores</td>
+                            </tr>
+                            <tr>
+                                <td><div id="tarifaAdulto"></div></td>
+                                <td><div id="tarifaEstudiante"></div></td>
+                            </tr>
+                        </table>-->
+                    </div>
+
+                    <br>
+
+                    <div class="sec-title text-center">
+                        <h2>Tarifas</h2>
+                        <div class="devider"><img style="width: 40px; height: 40px;" src="imagenes/tren.png" alt=""></div>
+                    </div>
+    
+                    <div class="sec-sub-title text-center">
+                    </div>
+            
+                    <div>
+                        <table>
+                            <tr>
+                                <td>
+                                    <input type="text" name="" id="nombreTarifa" placeholder="Nombre Tarifa">
+                                </td>
+                                <td><div style="width: 20px;"></div></td>
+                                <td>
+                                    <input type="text" name="" id="precioTarifa" placeholder="Valor Precio">
+                                </td>
+                                <td><div style="width: 20px;"></div></td>
+                                <td>
+                                    <div id="opcionesEstadoTarifa"></div>
+                                </td>
+                                <td><div style="width: 20px;"></div></td>
+                                <td>
+                                    <button style="display: flex;
+                                    align-items: center; justify-content: center; margin-top:5px; margin-left:10px ;" type="button" class="btn" onclick="insertarTarifa()"> 
+                                    <div></div>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    Insertar
+                                    </button>
+                                </td>
+                                
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="resultadoError2"></div>
                     <br>
                     
                 
