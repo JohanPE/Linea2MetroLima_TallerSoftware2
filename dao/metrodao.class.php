@@ -150,6 +150,73 @@ class Metrodao{
     }
 
 
+    public function actualizarEstadoTarifa($obj){
+        $idEstadoTarifa = $obj -> getIdEstadoTarifa();
+        $nombreEstadoTarifa = $obj->getNombreEstadoTarifa();
+        $glosaEstadoTarifa = $obj->getGlosaEstadoTarifa();
+
+        $base = new Bd();
+        $conexion = $base->getConnectionMYSQL();
+
+        /*
+        // Insertar el tipo de documento
+        $sql1 = "INSERT INTO tipodedocumento (nombre_tipodoc, glosa_tipodoc) VALUES ('$tipoDocumento', '$tipoDocumento')";
+        $res1 = $conexion->query($sql1);
+    
+        // Obtener el ID del tipo de documento recién insertado
+        */
+        /*$sqlRetorna = "SELECT MAX(idestadotarifa) AS max_id FROM estadotarifa";
+        $resRetorna = $conexion->query($sqlRetorna);
+        $row = $resRetorna->fetch_assoc();
+        $idestadotarifa = $row['max_id'];*/
+        
+        // Determinar el ID de la tarifa
+
+        // Insertar los datos del pasajero
+        $sql2 = "UPDATE estadotarifa
+        SET nombre = '$nombreEstadoTarifa', glosa = '$glosaEstadoTarifa'
+        WHERE idestadotarifa = $idEstadoTarifa;
+         ";
+    
+        $res2 = $conexion->query($sql2);
+    
+        return $res2;
+    }
+
+    public function actualizarTarifa($obj){
+        $idTarifa = $obj -> getIdTarifa();
+        $nombreTarifa = $obj->getNombreTarifa();
+        $precioTarifa = $obj->getPrecioTarifa();
+        $idEstadoTarifa = $obj->getIdEstadoTarifa();
+
+        $base = new Bd();
+        $conexion = $base->getConnectionMYSQL();
+
+        /*
+        // Insertar el tipo de documento
+        $sql1 = "INSERT INTO tipodedocumento (nombre_tipodoc, glosa_tipodoc) VALUES ('$tipoDocumento', '$tipoDocumento')";
+        $res1 = $conexion->query($sql1);
+    
+        // Obtener el ID del tipo de documento recién insertado
+        */
+        /*$sqlRetorna = "SELECT MAX(idestadotarifa) AS max_id FROM estadotarifa";
+        $resRetorna = $conexion->query($sqlRetorna);
+        $row = $resRetorna->fetch_assoc();
+        $idestadotarifa = $row['max_id'];*/
+        
+        // Determinar el ID de la tarifa
+
+        // Insertar los datos del pasajero
+        $sql2 = "UPDATE tarifa
+        SET nombre = '$nombreTarifa', precio = '$precioTarifa', idestadotarifa = $idEstadoTarifa
+        WHERE idtarifa = $idTarifa;
+         ";
+    
+        $res2 = $conexion->query($sql2);
+    
+        return $res2;
+    }
+
     public function nuevoUsuario($obj) {
         $usuario = $obj->getUsuario();
         $contrasenia = $obj->getContrasenia();
