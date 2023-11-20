@@ -41,6 +41,7 @@
     <link rel="stylesheet" href="css/main.css">
     <!-- media-queries -->
     <link rel="stylesheet" href="css/media-queries.css">
+    <link rel="stylesheet" href="style3.css">
 
     <!-- Modernizer Script for old Browsers -->
     <script src="js/modernizr-2.6.2.min.js"></script>
@@ -62,18 +63,63 @@
         }
 
         $(document).ready(function() {
-        function retornarTarifa() {
-            $.ajax({
-                type: "post",
-                url: "retornarTarifa.php",
-                success: function(response) {
-                    $("#tarifaResultado").html(response);
-                }
-            });
-        }
-
-        retornarTarifa(); // Llama a la función cuando la página se ha cargado
+            
+            //proximoTren();
+            retornarTarifa(); // Llama a la función cuando la página se ha cargado
         });
+        function retornarTarifa() {
+                $.ajax({
+                    type: "post",
+                    url: "retornarTarifa.php",
+                    success: function(response) {
+                        $("#tarifaResultado").html(response);
+                    }
+                });
+        }
+        /*function proximoTren(){
+            $.ajax({
+                    type: "post",
+                    url: "proximoTren.php",
+                    success: function(response) {
+                        $("#proximoTren").html(response);
+                    }
+                });
+        }*/
+        function horarioEstacion(estacion){
+
+            /*$.ajax({
+                    data: {estacion:estacion},
+                    type: "post",
+                    url: "proximoTren.php",
+                    success: function(response) {
+                        $("#proximoTren").html(response);
+                    }
+                });*/
+                $.ajax({
+                    data: {estacion:estacion},
+                    type: "post",
+                    url: "proximoTren.php",
+                    success: function(response) {
+                        $("#proximoTren").html(response);
+                        var miDialogo = document.getElementById('horarioEstacion');
+
+                        miDialogo.showModal();
+                    }
+                });
+            //var miDialogo = document.getElementById('horarioEstacion');
+
+            //miDialogo.showModal();
+            
+
+        }
+        function cerrarHorarioEstacion(){
+            //cerrarDialogoBtn = document.getElementById('cerrarDialogoBtn');
+            var miDialogo = document.getElementById('horarioEstacion');
+            miDialogo.close();
+        }
+        function refrescar(){
+            location.reload();
+        }
     </script>
 
 
@@ -115,14 +161,14 @@
             <nav class="collapse navbar-collapse navbar-right" role="navigation">
                 <ul id="nav" class="nav navbar-nav">
                     <li class="current"><a href="#body">Inicio</a></li>
-                    <li><a href="#features">Horarios y estaciones</a></li>
+                    <li><a href="#horarios">Horarios y estaciones</a></li>
                     <li><a href="">
                         <button type="button" style="border: none; background: none; padding: 0; margin: 0; 
                         font: inherit; cursor: pointer;" onclick="redireccionar()">Iniciar Sesión</button>
                     </a></li>
                     <li><a href="#tarifas">Tarifas</a></li>
                     <li><a href="#team">Team</a></li>
-                    <li><a href="http://google.com">Contactos</a></li>
+                    <li><a href="#contact">Contactos</a></li>
                 </ul>
             </nav>
             <!-- /main nav -->
@@ -208,12 +254,12 @@
         Features
         ==================================== -->
 
-    <section id="features" class="features">
+    <section id="horarios" class="features">
         <div class="container">
-            <div class="row">
+            <div class="row" style="justify-content: center; align-items: center;">
 
                 <div class="sec-title text-center mb50 wow bounceInDown animated" data-wow-duration="500ms">
-                    <h2>Features</h2>
+                    <h2>horarios y Estaciones</h2>
                     <div class="devider"><i class="fa fa-heart-o fa-lg"></i></div>
                 </div>
 
@@ -225,46 +271,66 @@
                         </div>
 
                         <div class="service-desc">
-                            <h3>Branding</h3>
+                            <h3>Horario</h3>
+                            <button type="button" class="btn"  onclick="refrescar()">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                Refrescar</button>
                             <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
                                 laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore</p>
+                            <div style="align-items: center;">
+                                <!-- Botones para diferentes estaciones -->
+                                <button type="button" class="btn" onclick="horarioEstacion('Puerto del Callao')">Estación Puerto del Callao</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('Buenos Aires')">Estación Buenos Aires</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('Juan Pablo II')">Estación Juan Pablo II</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('Insurgentes')">Estación Insurgentes</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('Carmen de la Legua')">Estación Carmen de la Legua</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('Óscar R. Benavides')">Estación Óscar R. Benavides</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('San Marcos')">Estación San Marcos</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('Elio')">Estación Elio</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('La Alborada')">Estación La Alborada</button>
+                                <!-- Agrega más botones según sea necesario -->
+
+                                <!-- Botones para otros lugares -->
+                                <button type="button" class="btn" onclick="horarioEstacion('Tingo María')">Estación Tingo María</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('Parque Murillo')">Estación Parque Murillo</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('Centro Histórico')">Centro Histórico</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('Plaza Bolognesi')">Estación Plaza Bolognesi</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('Central')">Estación Central</button>
+                                <!-- Agrega más botones según sea necesario -->
+
+                                <!-- Botones para otros lugares -->
+                                <button type="button" class="btn" onclick="horarioEstacion('Plaza Manco Cápac')">Estación Plaza Manco Cápac</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('Cangallo (Metro de Lima)')">Estación Cangallo (Metro de Lima)</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('28 de Julio')">Estación 28 de Julio</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('Nicolás Ayllón')">Estación Nicolás Ayllón</button>
+                                <!-- Agrega más botones según sea necesario -->
+
+                                <!-- Botones para otros lugares -->
+                                <button type="button" class="btn" onclick="horarioEstacion('Circunvalación')">Estación Circunvalación</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('San Juan de Dios')">Estación San Juan de Dios</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('Evitamiento')">Estación Evitamiento</button>
+                                <!-- Agrega más botones según sea necesario -->
+
+                                <!-- Botones para otros lugares -->
+                                <button type="button" class="btn" onclick="horarioEstacion('Óvalo Santa Anita')">Estación Óvalo Santa Anita</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('Colectora Industrial')">Estación Colectora Industrial</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('Los Ingenieros')">Estación Los Ingenieros</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('Mercado Santa Anita')">Estación Mercado Santa Anita</button>
+                                <!-- Agrega más botones según sea necesario -->
+
+                                <!-- Botones para otros lugares -->
+                                <button type="button" class="btn" onclick="horarioEstacion('Vista Alegre')">Estación Vista Alegre</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('Prolongación Javier Prado')">Estación Prolongación Javier Prado</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('Municipalidad de Ate')">Estación Municipalidad de Ate</button>
+                                <!-- Agrega más botones según sea necesario -->
+                            </div>
+                            <div id="proximoTren"></div>
                         </div>
                     </div>
                 </div>
-                <!-- end service item -->
-
-                <!-- service item -->
-                <div class="col-md-4 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="500ms">
-                    <div class="service-item">
-                        <div class="service-icon">
-                            <i class="fa fa-pencil fa-2x"></i>
-                        </div>
-
-                        <div class="service-desc">
-                            <h3>Development</h3>
-                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                                laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- end service item -->
-
-                <!-- service item -->
-                <div class="col-md-4 wow fadeInRight" data-wow-duration="500ms" data-wow-delay="900ms">
-                    <div class="service-item">
-                        <div class="service-icon">
-                            <i class="fa fa-bullhorn fa-2x"></i>
-                        </div>
-
-                        <div class="service-desc">
-                            <h3>Consulting</h3>
-                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                                laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- end service item -->
-
             </div>
         </div>
     </section>
@@ -288,8 +354,7 @@
                 </div>
 
                 <div class="sec-sub-title text-center">
-                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
-                        totam rem aperiam, eaque ipsa quae ab illo inventore</p>
+                    <p>La Linea 2 Metro de Lima tiene las siguientes tarifas disponibles</p>
                 </div>
                 
                 <div id="tarifaResultado">
@@ -424,59 +489,6 @@
         Some fun facts
         ==================================== -->
 
-    <section id="facts" class="facts">
-        <div class="parallax-overlay">
-            <div class="container">
-                <div class="row number-counters">
-
-                    <div class="sec-title text-center mb50 wow rubberBand animated" data-wow-duration="1000ms">
-                        <h2>Some Fun Facts</h2>
-                        <div class="devider"><i class="fa fa-heart-o fa-lg"></i></div>
-                    </div>
-
-                    <!-- first count item -->
-                    <div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInUp animated"
-                        data-wow-duration="500ms">
-                        <div class="counters-item">
-                            <i class="fa fa-clock-o fa-3x"></i>
-                            <strong data-to="3200">0</strong>
-                            <!-- Set Your Number here. i,e. data-to="56" -->
-                            <p>Hours of Work</p>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInUp animated" data-wow-duration="500ms"
-                        data-wow-delay="300ms">
-                        <div class="counters-item">
-                            <i class="fa fa-users fa-3x"></i>
-                            <strong data-to="120">0</strong>
-                            <!-- Set Your Number here. i,e. data-to="56" -->
-                            <p>Satisfied Clients</p>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInUp animated" data-wow-duration="500ms"
-                        data-wow-delay="600ms">
-                        <div class="counters-item">
-                            <i class="fa fa-rocket fa-3x"></i>
-                            <strong data-to="360">0</strong>
-                            <!-- Set Your Number here. i,e. data-to="56" -->
-                            <p> Projects Delivered </p>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInUp animated" data-wow-duration="500ms"
-                        data-wow-delay="900ms">
-                        <div class="counters-item">
-                            <i class="fa fa-trophy fa-3x"></i>
-                            <strong data-to="6454">0</strong>
-                            <!-- Set Your Number here. i,e. data-to="56" -->
-                            <p>Awards Won</p>
-                        </div>
-                    </div>
-                    <!-- end first count item -->
-
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!--
         End Some fun facts

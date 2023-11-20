@@ -457,6 +457,22 @@ class Metrodao{
             return array(); // Devuelve un array vacío si no hay resultados o hay un error
         }
     }
+    public function proximoTren(){
+        $lista = array();
+        $base = new Bd();
+        $conexion = $base->getConnectionMYSQL();
+        $sql = "SELECT MIN(hora) AS proximoTren
+        FROM horario
+        WHERE hora >= CURTIME()
+        LIMIT 1;";
+        $res = $conexion->query($sql);
+    
+        if ($res) {
+            return $res->fetch_all(MYSQLI_ASSOC);
+        } else {
+            return array(); // Devuelve un array vacío si no hay resultados o hay un error
+        }
+    }
     public function retornarViajes($obj){
         $usuario = $obj->getUsuario();
         $lista = array();

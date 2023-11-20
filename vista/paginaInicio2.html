@@ -80,20 +80,7 @@
 
     
         function solicitar(){
-            // Crear el formulario dinámicamente
-            /*var formularioQR = document.createElement("div");
-                formularioQR.className = "form";
-                formularioQR.innerHTML = `
-                    <input type="text" spellcheck="false" placeholder="Ingrese su contraseña" id="txtContraseniaQR">
-                    <button onclick="solicitar2()">Verificar</button>
-                `;
-    
-                // Agregar el formulario al elemento con el id "resultado"
-                var resultado = document.getElementById("resultado");
-                resultado.appendChild(formularioQR);*/
-                //document.getElementById('resultado').innerHTML = 'Nuevo contenido para mostrar';
-                    document.getElementById('verificar').style.display = "block";
-
+            document.getElementById('verificar').style.display = "block";
         }
     
         function solicitar2(){
@@ -111,6 +98,27 @@
                     document.getElementById('resultado2Input').value = response;
                 }
             });
+        }
+        function horarioEstacion(estacion){
+            $.ajax({
+                data: {estacion:estacion},
+                type: "post",
+                url: "proximoTren.php",
+                success: function(response) {
+                    $("#proximoTren").html(response);
+                    var miDialogo = document.getElementById('horarioEstacion');
+
+                    miDialogo.showModal();
+                }
+            });
+
+        }
+        function cerrarHorarioEstacion(){
+                    var miDialogo = document.getElementById('horarioEstacion');
+                    miDialogo.close();
+                }
+                function refrescar(){
+                    location.reload();
         }
     </script>
     <!-- meta charec set -->
@@ -181,15 +189,6 @@
                     <span class="sr-only">Toggle navigation</span>
                     <i class="fa fa-bars fa-2x"></i>
                 </button>
-                <!-- /responsive nav button -->
-
-                <!-- logo 
-                <a class="navbar-brand" href="#body">
-                    <h1 id="logo">
-                        <img src="img/logo.png" alt="Brandi">
-                    </h1>
-                </a>
-                /logo -->
 
                 <div class="form2">
                     <table style="color:white;">
@@ -219,7 +218,7 @@
             <nav class="collapse navbar-collapse navbar-right" role="navigation">
                 <ul id="nav" class="nav navbar-nav">
                     <li class="current"><a href="#body">Inicio</a></li>
-                    <li><a href="#features">Horarios</a></li>
+                    <li><a href="#horarios">Horarios</a></li>
                     <li><a href="#qr">Solicitar QR</a></li>
                     <li><a href="#team">Tarifas</a></li>
                     <li><a href="#misViajes">Mis Viajes</a></li>
@@ -301,21 +300,14 @@
         </div>
     </section>
 
-    <!--
-        End Home SliderEnd
-        ==================================== -->
 
-    <!--
-        Features
-        ==================================== -->
-
-    <section id="features" class="features">
+    <section id="horarios" class="features">
         <div class="container">
-            <div class="row">
+            <div class="row" style="justify-content: center; align-items: center;">
 
                 <div class="sec-title text-center mb50 wow bounceInDown animated" data-wow-duration="500ms">
-                    <h2>Features</h2>
-                    <div class="devider"><img style="width: 40px; height: 40px;" src="imagenes/tren.png" alt=""></div>
+                    <h2>horarios y Estaciones</h2>
+                    <div class="devider"><i class="fa fa-heart-o fa-lg"></i></div>
                 </div>
 
                 <!-- service item -->
@@ -326,88 +318,77 @@
                         </div>
 
                         <div class="service-desc">
-                            <h3>Branding</h3>
+                            <h3>Horario</h3>
+                            <button type="button" class="btn"  onclick="refrescar()">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                Refrescar</button>
                             <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
                                 laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore</p>
+                            <div style="align-items: center;">
+                                <!-- Botones para diferentes estaciones -->
+                                <button type="button" class="btn" onclick="horarioEstacion('Puerto del Callao')">Estación Puerto del Callao</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('Buenos Aires')">Estación Buenos Aires</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('Juan Pablo II')">Estación Juan Pablo II</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('Insurgentes')">Estación Insurgentes</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('Carmen de la Legua')">Estación Carmen de la Legua</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('Óscar R. Benavides')">Estación Óscar R. Benavides</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('San Marcos')">Estación San Marcos</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('Elio')">Estación Elio</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('La Alborada')">Estación La Alborada</button>
+                                <!-- Agrega más botones según sea necesario -->
+
+                                <!-- Botones para otros lugares -->
+                                <button type="button" class="btn" onclick="horarioEstacion('Tingo María')">Estación Tingo María</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('Parque Murillo')">Estación Parque Murillo</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('Centro Histórico')">Centro Histórico</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('Plaza Bolognesi')">Estación Plaza Bolognesi</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('Central')">Estación Central</button>
+                                <!-- Agrega más botones según sea necesario -->
+
+                                <!-- Botones para otros lugares -->
+                                <button type="button" class="btn" onclick="horarioEstacion('Plaza Manco Cápac')">Estación Plaza Manco Cápac</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('Cangallo (Metro de Lima)')">Estación Cangallo (Metro de Lima)</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('28 de Julio')">Estación 28 de Julio</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('Nicolás Ayllón')">Estación Nicolás Ayllón</button>
+                                <!-- Agrega más botones según sea necesario -->
+
+                                <!-- Botones para otros lugares -->
+                                <button type="button" class="btn" onclick="horarioEstacion('Circunvalación')">Estación Circunvalación</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('San Juan de Dios')">Estación San Juan de Dios</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('Evitamiento')">Estación Evitamiento</button>
+                                <!-- Agrega más botones según sea necesario -->
+
+                                <!-- Botones para otros lugares -->
+                                <button type="button" class="btn" onclick="horarioEstacion('Óvalo Santa Anita')">Estación Óvalo Santa Anita</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('Colectora Industrial')">Estación Colectora Industrial</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('Los Ingenieros')">Estación Los Ingenieros</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('Mercado Santa Anita')">Estación Mercado Santa Anita</button>
+                                <!-- Agrega más botones según sea necesario -->
+
+                                <!-- Botones para otros lugares -->
+                                <button type="button" class="btn" onclick="horarioEstacion('Vista Alegre')">Estación Vista Alegre</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('Prolongación Javier Prado')">Estación Prolongación Javier Prado</button>
+                                <button type="button" class="btn" onclick="horarioEstacion('Municipalidad de Ate')">Estación Municipalidad de Ate</button>
+                                <!-- Agrega más botones según sea necesario -->
+                            </div>
+                            <div id="proximoTren"></div>
                         </div>
                     </div>
                 </div>
-                <!-- end service item -->
-
-                <!-- service item -->
-                <div class="col-md-4 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="500ms">
-                    <div class="service-item">
-                        <div class="service-icon">
-                            <i class="fa fa-pencil fa-2x"></i>
-                        </div>
-
-                        <div class="service-desc">
-                            <h3>Development</h3>
-                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                                laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- end service item -->
-
-                <!-- service item -->
-                <div class="col-md-4 wow fadeInRight" data-wow-duration="500ms" data-wow-delay="900ms">
-                    <div class="service-item">
-                        <div class="service-icon">
-                            <i class="fa fa-bullhorn fa-2x"></i>
-                        </div>
-
-                        <div class="service-desc">
-                            <h3>Consulting</h3>
-                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                                laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- end service item -->
-
             </div>
         </div>
     </section>
 
-    <!--
-        End Features
-        ==================================== -->
 
-
-    <!--
-        Our Works
-        ==================================== -->
-
-
-    <!--
-        End Our Works
-        ==================================== -->
-
-    <!--
-        Meet Our Team
-        ==================================== -->
-
-
-    <!--
-        End Meet Our Team
-        ==================================== -->
-
-    <!--
-        Some fun facts
-        ==================================== -->
 
     <section id="qr" class="facts">
         <div class="parallax-overlay" style="position: relative;height: 600px;">
             <div class="container">
                 <div class="row number-counters">
 
-                    <!--<div class="sec-title text-center mb50 wow rubberBand animated" data-wow-duration="1000ms">
-                        <h2>Solicitar código qr</h2>
-                        <div class="devider"><i class="fa fa-heart-o fa-lg"></i></div>
-                    </div>
-
-                     first count item -->
                     <div>
                         <header>
                             <div class="sec-title text-center wow fadeInUp animated" data-wow-duration="700ms">
@@ -425,17 +406,7 @@
                               </button>
                               
                           </header>
-                          
-                        <!--<div class="form">
-                          <input type="text" spellcheck="false" placeholder="ingrese el texto o la direccion URL" id="txtIdUsuario">
-                          <button>Generar</button>
-                        </div>
-                        <div class="qr-code">
-                          <img src="" alt="qr-code">
-                          
-                          <button id="descarga">Descargar </button>
-                        
-                        </div>-->
+
                       </div>
                       
                       <div id="resultadoVerificar"></div>
@@ -493,30 +464,26 @@
         </div>
     </section>
 
-    <!--
-        End Some fun facts
-        ==================================== -->
+    <section id="tarifas" class="works clearfix">
+        <div class="container">
+            <div class="row">
 
-        <section id="tarifas" class="works clearfix">
-            <div class="container">
-                <div class="row">
-    
-                    <div class="sec-title text-center">
-                        <h2>Tarifas</h2>
-                        <div class="devider"><i class="fa fa-heart-o fa-lg"></i></div>
-                    </div>
-    
-                    <div class="sec-sub-title text-center">
-                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
-                            totam rem aperiam, eaque ipsa quae ab illo inventore</p>
-                    </div>
-                    
-                    <div id="tarifaResultado">
-    
-                    </div>
+                <div class="sec-title text-center">
+                    <h2>Tarifas</h2>
+                    <div class="devider"><i class="fa fa-heart-o fa-lg"></i></div>
+                </div>
+
+                <div class="sec-sub-title text-center">
+                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
+                        totam rem aperiam, eaque ipsa quae ab illo inventore</p>
+                </div>
+                
+                <div id="tarifaResultado">
+
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
     <section id="misViajes">
         <div class="container">
@@ -531,20 +498,6 @@
                     <p>Estos son los viajes a lo largo de su estadía en la LINEA 2</p>
                 </div>
                 <div id="viajesResultado">
-                    <!--<table class="table">
-                        <tr style="font-size: 20px; text-align: center;">
-                            <td>Tarifa Adulto</td>
-                            <td>Tarifa Estudiante</td>
-                        </tr>
-                        <tr style="font-size: 15px; text-align: center;">
-                            <td>Dirigido al público en general</td>
-                            <td>Dirigido a Escolares, universitarios <br> y alumnos de institutos superiores</td>
-                        </tr>
-                        <tr>
-                            <td><div id="tarifaAdulto"></div></td>
-                            <td><div id="tarifaEstudiante"></div></td>
-                        </tr>
-                    </table>-->
                 </div>
             </div>
         </div>

@@ -70,6 +70,10 @@ class MetroController{
         $data = new Metrodao();
         return $data->retornarTarifa();
     }
+    public function proximoTren(){
+        $data = new Metrodao();
+        return $data->proximoTren();
+    }
     public function retornarEstadoTarifa(){
         $data = new Metrodao();
         return $data->retornarEstadoTarifa();
