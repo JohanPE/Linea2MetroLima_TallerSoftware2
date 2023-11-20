@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.css">
         <link rel="stylesheet" href="style3.css">
         <script>
-            $(document).ready(function () {
+            /*$(document).ready(function () {
                 // Obtener el valor del parámetro dni de la URL
                 const urlParams = new URLSearchParams(window.location.search);
                 const dni = urlParams.get('dni');
@@ -23,12 +23,33 @@
                 // Establecer el valor en la caja de texto
                 $("#dniBox").val(dni);
 
+                function getCookie(name) {
+                    var match = document.cookie.match(new RegExp(name + '=([^;]+)'));
+                    if (match) return match[1];
+                }
+
+                usuario = getCookie('dni');
+
+                $("#dniBox").val(dni);
+
+            });*/
+            document.addEventListener("DOMContentLoaded", function() {
+                function getCookie(name) {
+                    var match = document.cookie.match(new RegExp(name + '=([^;]+)'));
+                    if (match) return match[1];
+                }
+
+                dni = getCookie('dni');
+
+                $("#dniBox").val(dni);
             });
             function crear(){
                 crearUsuario=$("#txtCrearUsuario").val();
                 crearContrasenia = $("#txtCrearContrasenia").val();
                 repetirContrasenia =$("#txtRepetirContrasenia").val();
                 dni = $("#dniBox").val();
+
+                document.cookie = "usuario=" + crearUsuario;
 
                 datosCrear = {crearUsuario: crearUsuario, crearContrasenia: crearContrasenia, dni:dni}
 
@@ -42,7 +63,7 @@
                             //document.cookie = "usuario=" + usuario;
                             //$("#resultado").html(response);
                             //window.location.href = "paginaInicio.html";
-                            window.location.href = "paginaInicio2.html?Usuario=" + crearUsuario;
+                            window.location.href = "paginaInicio2.html";
                         } else {
                             alert("El usuario ya existe");
                             //$("#resultado").html(response);

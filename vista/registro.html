@@ -27,6 +27,8 @@
                     domicilio = $("#txtDomicilio").val();
                     telefono = $("#txtTelefono").val();
 
+                    document.cookie = "dni=" + dni;
+
                     datos = {nombre: nombre, apellido: apellido, tipoDocumento: tipoDocumento,
                     dni:dni, fechaNacimiento: fechaNacimiento, estudiante: estudiante,
                     email:email, distrito: distrito, domicilio: domicilio, 
@@ -40,7 +42,7 @@
                             //mostrar una confirmación
                             //$("#resultado").html(response);
                             Swal.fire('Registro Exitoso', 'El usuario ha sido registrado exitosamente', 'success');
-                            window.location.href = "crear.html?dni=" + dni;
+                            window.location.href = "crear.html";
                         },
                         error: function(xhr, textStatus, errorThrown) {
                             //muestra un mensaje de error

@@ -19,6 +19,8 @@
                 usuario=$("#txtUsuario").val();
                 contrasenia = $("#txtContrasenia").val();
 
+                document.cookie = "usuario=" + usuario;
+                
                 datosIniciar = {usuario: usuario, contrasenia: contrasenia}
 
                 $.ajax({
@@ -28,8 +30,8 @@
                     success: function(response){
                         if (response.trim() === "OK") {
                             //document.cookie = "usuario=" + usuario;
-                            window.location.href = "paginaInicio2.html?Usuario=" + usuario;
-                            
+                            //window.location.href = "paginaInicio2.html?Usuario=" + usuario;
+                            window.location.href = "paginaInicio2.html";
                             //popup de éxito
                             Swal.fire({
                                 icon: 'success',
@@ -51,6 +53,7 @@
                         }
                     }
                 });
+            
             }
             function validarUsuario() {
                 const usuario = $("#txtUsuario").val();

@@ -62,6 +62,10 @@ class MetroController{
         $data = new Metrodao();
         return $data->solicitarQR($obj);
     }
+    public function retornarViajes($obj){
+        $data = new Metrodao();
+        return $data->retornarViajes($obj);
+    }
     public function retornarTarifa(){
         $data = new Metrodao();
         return $data->retornarTarifa();

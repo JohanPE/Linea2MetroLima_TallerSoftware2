@@ -457,6 +457,27 @@ class Metrodao{
             return array(); // Devuelve un array vacío si no hay resultados o hay un error
         }
     }
+    public function retornarViajes($obj){
+        $usuario = $obj->getUsuario();
+        $lista = array();
+        $base = new Bd();
+        $conexion = $base->getConnectionMYSQL();
+
+        $sqlRetorna = "select id_usuario FROM usuario WHERE usuario = '$usuario'";
+        $resRetorna = $conexion->query($sqlRetorna);
+        $row = $resRetorna->fetch_assoc();
+        $id_usuario = $row['id_usuario'];
+
+
+        $sql = "select * from recorrido where id_usuario = '$id_usuario'";
+        $res = $conexion->query($sql);
+    
+        if ($res) {
+            return $res->fetch_all(MYSQLI_ASSOC);
+        } else {
+            return array(); // Devuelve un array vacío si no hay resultados o hay un error
+        }
+    }
 
     public function eliminarTarifa($obj){
         $idtarifa= $obj->getIdTarifa();

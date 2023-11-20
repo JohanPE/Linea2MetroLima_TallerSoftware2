@@ -19,6 +19,8 @@
                 usuarioTrabajador=$("#txtUsuarioTrabajador").val();
                 claveTrabajador = $("#txtClaveTrabajador").val();
 
+                document.cookie = "usuarioTrabajador=" + usuarioTrabajador;
+
                 datosIniciar = {usuarioTrabajador: usuarioTrabajador, claveTrabajador: claveTrabajador}
 
                 $.ajax({
@@ -38,7 +40,7 @@
                                 timer: 1500
                             });
                             setTimeout(function() {
-                                window.location.href = "paginaAdministrador.html?Usuario=" + usuarioTrabajador;
+                                window.location.href = "paginaAdministrador.html";
                                 //window.location.href = "paginaAdministrador.html?Usuario=" + usuariotrabajador;
                             }, 1500);
                         } else if(response.trim() === "2"){
@@ -52,7 +54,7 @@
                                 timer: 1500
                             });
                             setTimeout(function() {
-                                window.location.href = "paginaTrabajador.html?Usuario=" + usuarioTrabajador;
+                                window.location.href = "paginaTrabajador.html";
                                 //window.location.href = "paginaAdministrador.html?Usuario=" + usuariotrabajador;
                             }, 1500);
                         } 

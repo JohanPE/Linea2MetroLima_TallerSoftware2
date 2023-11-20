@@ -15,14 +15,15 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.css">
         <link rel="stylesheet" href="style3.css">
         <script>
-            $(document).ready(function () {
-                // Obtener el valor del parámetro dni de la URL
-                const urlParams = new URLSearchParams(window.location.search);
-                const dni = urlParams.get('dni');
+            document.addEventListener("DOMContentLoaded", function() {
+                function getCookie(name) {
+                    var match = document.cookie.match(new RegExp(name + '=([^;]+)'));
+                    if (match) return match[1];
+                }
 
-                // Establecer el valor en la caja de texto
+                dni = getCookie('dniTrabajador');
+
                 $("#dniBox").val(dni);
-
             });
             function crearAdministrador(){
                 crearUsuario=$("#txtCrearUsuario").val();
@@ -31,6 +32,8 @@
                 rol =$("#txtRol").val();
                 idRol = parseInt(rol);
                 dni = $("#dniBox").val();
+
+                document.cookie = "usuarioTrabajador=" + crearUsuario;
 
                 datosCrear = {crearUsuario: crearUsuario, crearContrasenia: crearContrasenia,
                 idRol: idRol, dni:dni}
@@ -43,9 +46,9 @@
                         $("#resultado").html(response);
                         if (response.trim() === "OK") {
                             if (idRol==1){
-                                window.location.href = "paginaAdministrador.html?Usuario=" + crearUsuario;
+                                window.location.href = "paginaAdministrador.html";
                             }else if ( idRol == 2){
-                                window.location.href = "paginaTrabajador.html?Usuario=" + crearUsuario;
+                                window.location.href = "paginaTrabajador.html";
                             }
                             //document.cookie = "usuario=" + usuario;
                             //window.location.href = "paginaAdministrador.html";
