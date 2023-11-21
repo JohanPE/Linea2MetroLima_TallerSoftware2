@@ -305,6 +305,7 @@ class Metrodao{
         //return $res;
     }
 
+
     public function validarUsuario($obj){
         $usuario = $obj->getUsuario();
         $contrasenia = $obj->getContrasenia();
@@ -555,6 +556,64 @@ class Metrodao{
         $idusuario = $row['idusuario'];*/
 
         $sql = "delete from estadotarifa where idestadotarifa = $idestadotarifa;";
+        $res = $conexion->query($sql);
+        /*if ($res) {
+            return $res->fetch_all(MYSQLI_ASSOC);
+        } else {
+            return array(); // Devuelve un array vacío si no hay resultados o hay un error
+        }*/
+        return $res;
+    }
+
+    public function enviarMensaje($obj) {
+        $nombreConsulta = $obj->getNombreConsulta();
+        $emailConsulta = $obj->getEmailConsulta();
+        $mensajeConsulta = $obj->getMensajeConsulta();
+
+        $base = new Bd();
+        $conexion = $base->getConnectionMYSQL();
+    
+        /*$sql1 = "select N_identificacion FROM pasajeros WHERE numero_pasajero = (SELECT MAX(numero_pasajero) FROM pasajeros)";
+        $res1 = $conexion->query($sql1);
+        $fila = $res1->fetch_object();
+        $item1 = new Marca();
+        $item1->setDni($fila->N_identificacion);
+    
+        // Escapar las variables para evitar la inyección de SQL
+        $usuario = $conexion->real_escape_string($usuario);
+        $contrasenia = $conexion->real_escape_string($contrasenia);
+        $dni = $conexion->real_escape_string($item1->getDni());*/
+    
+        $sql = "insert into mensaje (nombre_persona, email_persona, mensaje)";
+        $sql=$sql." values ('$nombreConsulta', '$emailConsulta', '$mensajeConsulta');";
+        $res = $conexion->query($sql);
+
+    }
+    public function mostrarConsultas(){
+        $lista = array();
+        $base = new Bd();
+        $conexion = $base->getConnectionMYSQL();
+        $sql = "select * from mensaje";
+        $res = $conexion->query($sql);
+    
+        if ($res) {
+            return $res->fetch_all(MYSQLI_ASSOC);
+        } else {
+            return array(); // Devuelve un array vacío si no hay resultados o hay un error
+        }
+    }
+    public function eliminarMensaje($obj){
+        $idMensaje= $obj->getIdMensaje();
+        $lista = array();
+        $base = new Bd();
+        $conexion = $base->getConnectionMYSQL();
+
+        /*$sqlidusuario = "select idusuario from usuario where nombreusuario = '$usuario'";
+        $residresultado = $conexion->query($sqlidresultado);
+        $row = $residresultado->fetch_assoc();
+        $idusuario = $row['idusuario'];*/
+
+        $sql = "delete from mensaje where idmensaje = $idMensaje;";
         $res = $conexion->query($sql);
         /*if ($res) {
             return $res->fetch_all(MYSQLI_ASSOC);

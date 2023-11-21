@@ -106,6 +106,18 @@ class MetroController{
         $data = new Metrodao();
         return $data->actualizarTarifa($obj);
     }
+    public function enviarMensaje($obj){
+        $data = new Metrodao();
+        return $data->enviarMensaje($obj);
+    }
+    public function mostrarConsultas(){
+        $data = new Metrodao();
+        return $data->mostrarConsultas();
+    }
+    public function eliminarMensaje($obj){
+        $data = new Metrodao();
+        return $data->eliminarMensaje($obj);
+    }
     //------------------------------------------
     public function validarUsuarioTrabajador($usr){
         $data = new Metrodao();

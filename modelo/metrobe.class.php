@@ -28,6 +28,10 @@ class Metro{
     private $nombreEstadoTarifa;
     private $glosaEstadoTarifa;
 
+    private $idMensaje;
+    private $nombreConsulta;
+    private $emailConsulta;
+    private $mensajeConsulta;
 
     public function __construct() {
         
@@ -105,7 +109,18 @@ class Metro{
     public function getGlosaEstadoTarifa(){
         return $this->glosaEstadoTarifa;
     }
-
+    public function getNombreConsulta(){
+        return $this->nombreConsulta;
+    }
+    public function getEmailConsulta(){
+        return $this->emailConsulta;
+    }
+    public function getMensajeConsulta(){
+        return $this->mensajeConsulta;
+    }
+    public function getIdMensaje(){
+        return $this->idMensaje;
+    }
     //----------------------------
     
     public function setDni($dni){
@@ -179,6 +194,18 @@ class Metro{
     }
     public function setGlosaEstadoTarifa($glosaEstadoTarifa){
         $this->glosaEstadoTarifa=$glosaEstadoTarifa;
+    }
+    public function setNombreConsulta($nombreConsulta){
+        $this->nombreConsulta=$nombreConsulta;
+    }
+    public function setEmailConsulta($emailConsulta){
+        $this->emailConsulta=$emailConsulta;
+    }
+    public function setMensajeConsulta($mensajeConsulta){
+        $this->mensajeConsulta=$mensajeConsulta;
+    }
+    public function setIdMensaje($idMensaje){
+        $this->idMensaje=$idMensaje;
     }
 }
 ?>
