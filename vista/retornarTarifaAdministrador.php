@@ -37,7 +37,7 @@ echo "<dialog id='ventanaEditarTarifa' >
                 </td>
                 <td></td>
                 <td>
-                <button type='button' class='btn' onclick='cerrar()'>Cerrar
+                <button type='button' class='btn' onclick='cerrarTarifa()'>Cerrar
                     <span></span>
                     <span></span>
                     <span></span>
@@ -111,10 +111,10 @@ echo "<dialog id='ventanaEditarTarifa' >
 
                             // Mostrar una alerta con los valores
                             
-                            cerrar();
+                            cerrarTarifa();
                         });
                     }
-                    function cerrar(){
+                    function cerrarTarifa(){
                         document.getElementById('ventanaEditarTarifa').close();
                     }
                 </script>";

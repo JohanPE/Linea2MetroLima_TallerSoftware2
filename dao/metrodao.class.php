@@ -457,6 +457,19 @@ class Metrodao{
             return array(); // Devuelve un array vacío si no hay resultados o hay un error
         }
     }
+    public function retornarPasajeros(){
+        $lista = array();
+        $base = new Bd();
+        $conexion = $base->getConnectionMYSQL();
+        $sql = "select usuario, saldo, dni from usuario";
+        $res = $conexion->query($sql);
+    
+        if ($res) {
+            return $res->fetch_all(MYSQLI_ASSOC);
+        } else {
+            return array(); // Devuelve un array vacío si no hay resultados o hay un error
+        }
+    }
     public function proximoTren(){
         $lista = array();
         $base = new Bd();

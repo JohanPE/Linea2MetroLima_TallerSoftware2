@@ -62,9 +62,22 @@
             retornarTarifa(); 
             retornarEstadoTarifa();
             opcionEstadoTarifa();
+            retornarPasajeros();
         });
-        
+        function retornarPasajeros() {
+                $.ajax({
+                    type: "post",
+                    url: "retornarPasajeros.php",
+                    success: function(response) {
+                        $("#pasajerosResultado").html(response);
+                    }
+                });
+                
+            }
 
+        function salir(){
+            window.location.href = "sesionTrabajador.html";
+        }
 
         function saldo(){
     
@@ -249,10 +262,10 @@
                 <ul id="nav" class="nav navbar-nav">
                     <li class="current"><a href="#body">Inicio</a></li>
                     <li><a href="#tarifas">Tarifas</a></li>
-                    <li><a href="#contact">Pasajeros</a></li>
-                    <li><a href="http://google.com">Contactos</a></li>
+                    <li><a href="#pasajeros">Pasajeros</a></li>
+                    <li><a href="#contact">Contactos</a></li>
                     <li> <button style="border-radius:50%; width:40px; height:40px; display: flex;
-                align-items: center; justify-content: center; margin-top:5px; margin-left:10px;"   type="button" class="btn" onclick="recargar()"> 
+                align-items: center; justify-content: center; margin-top:5px; margin-left:10px;"   type="button" class="btn" onclick="salir()"> 
                 <div><img src="imagenes\exito2.png" alt="" style="width:25px; height:25px; " /></div>
                 <span></span>
                 <span></span>
@@ -378,224 +391,120 @@
         End Some fun facts
         ==================================== -->
 
-        <section id="tarifas" class="works clearfix">
-            <div class="container">
-                <div class="row">
-                    
-                    <div class="sec-title text-center">
-                        <h2>Estado tarifas</h2>
-                        <div class="devider"><img style="width: 40px; height: 40px;" src="imagenes/tren.png" alt=""></div>
-                    </div>
-    
-                    <div class="sec-sub-title text-center">
-                    </div>
-            
-                    <div>
-                        <table>
-                            <tr>
-                                <td>
-                                    <input type="text" name="" id="nombreEstadoTarifa" placeholder="Nombre Estado Tarifa">
-                                </td>
-                                <td><div style="width: 20px;"></div></td>
-                                <td>
-                                    <input type="text" name="" id="glosaEstadoTarifa" placeholder="Glosa Estado Tarifa">
-                                </td>
-                                <td><div style="width: 20px;"></div></td>
-                                <td>
-                                    <button style="display: flex;
-                                    align-items: center; justify-content: center; margin-top:5px; margin-left:10px ;" type="button" class="btn" onclick="insertarEstadoTarifa()"> 
-                                    <div></div>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    Insertar
-                                    </button>
-                                </td>
-                                
-                            </tr>
-                        </table>
-                    </div>
-                    <div id="resultadoError"></div>
-                    <br>
-                    <div id="estadoTarifaResultado">
-                        <!--<table class="table">
-                            <tr style="font-size: 20px; text-align: center;">
-                                <td>Tarifa Adulto</td>
-                                <td>Tarifa Estudiante</td>
-                            </tr>
-                            <tr style="font-size: 15px; text-align: center;">
-                                <td>Dirigido al público en general</td>
-                                <td>Dirigido a Escolares, universitarios <br> y alumnos de institutos superiores</td>
-                            </tr>
-                            <tr>
-                                <td><div id="tarifaAdulto"></div></td>
-                                <td><div id="tarifaEstudiante"></div></td>
-                            </tr>
-                        </table>-->
-                    </div>
-
-                    <br>
-
-                    <div class="sec-title text-center">
-                        <h2>Tarifas</h2>
-                        <div class="devider"><img style="width: 40px; height: 40px;" src="imagenes/tren.png" alt=""></div>
-                    </div>
-    
-                    <div class="sec-sub-title text-center">
-                    </div>
-            
-                    <div>
-                        <table>
-                            <tr>
-                                <td>
-                                    <input type="text" name="" id="nombreTarifa" placeholder="Nombre Tarifa">
-                                </td>
-                                <td><div style="width: 20px;"></div></td>
-                                <td>
-                                    <input type="text" name="" id="precioTarifa" placeholder="Valor Precio">
-                                </td>
-                                <td><div style="width: 20px;"></div></td>
-                                <td>
-                                    <div id="opcionesEstadoTarifa"></div>
-                                </td>
-                                <td><div style="width: 20px;"></div></td>
-                                <td>
-                                    <button style="display: flex;
-                                    align-items: center; justify-content: center; margin-top:5px; margin-left:10px ;" type="button" class="btn" onclick="insertarTarifa()"> 
-                                    <div></div>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    Insertar
-                                    </button>
-                                </td>
-                                
-                            </tr>
-                        </table>
-                    </div>
-                    <div id="resultadoError2"></div>
-                    <br>
-                    
+    <section id="tarifas" class="works clearfix">
+        <div class="container">
+            <div class="row">
                 
-
-
-                    <div id="tarifaResultado">
-                        <!--<table class="table">
-                            <tr style="font-size: 20px; text-align: center;">
-                                <td>Tarifa Adulto</td>
-                                <td>Tarifa Estudiante</td>
-                            </tr>
-                            <tr style="font-size: 15px; text-align: center;">
-                                <td>Dirigido al público en general</td>
-                                <td>Dirigido a Escolares, universitarios <br> y alumnos de institutos superiores</td>
-                            </tr>
-                            <tr>
-                                <td><div id="tarifaAdulto"></div></td>
-                                <td><div id="tarifaEstudiante"></div></td>
-                            </tr>
-                        </table>-->
-                    </div>
-                    <!--<div class="work-filter wow fadeInRight animated" data-wow-duration="500ms">
-                        <ul class="text-center">
-                            <li><a href="javascript:;" data-filter="all" class="active filter">All</a></li>
-                            <li><a href="javascript:;" data-filter=".branding" class="filter">Branding</a></li>
-                            <li><a href="javascript:;" data-filter=".web" class="filter">web</a></li>
-                            <li><a href="javascript:;" data-filter=".logo-design" class="filter">logo design</a></li>
-                            <li><a href="javascript:;" data-filter=".photography" class="filter">photography</a></li>
-                        </ul>
-                    </div>-->
-    
+                <div class="sec-title text-center">
+                    <h2>Estado tarifas</h2>
+                    <div class="devider"><img style="width: 40px; height: 40px;" src="imagenes/tren.png" alt=""></div>
                 </div>
+
+                <div class="sec-sub-title text-center">
+                </div>
+        
+                <div>
+                    <table>
+                        <tr>
+                            <td>
+                                <input type="text" name="" id="nombreEstadoTarifa" placeholder="Nombre Estado Tarifa">
+                            </td>
+                            <td><div style="width: 20px;"></div></td>
+                            <td>
+                                <input type="text" name="" id="glosaEstadoTarifa" placeholder="Glosa Estado Tarifa">
+                            </td>
+                            <td><div style="width: 20px;"></div></td>
+                            <td>
+                                <button style="display: flex;
+                                align-items: center; justify-content: center; margin-top:5px; margin-left:10px ;" type="button" class="btn" onclick="insertarEstadoTarifa()"> 
+                                <div></div>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                Insertar
+                                </button>
+                            </td>
+                            
+                        </tr>
+                    </table>
+                </div>
+                <div id="resultadoError"></div>
+                <br>
+                <div id="estadoTarifaResultado">
+                </div>
+
+                <br>
+
+                <div class="sec-title text-center">
+                    <h2>Tarifas</h2>
+                    <div class="devider"><img style="width: 40px; height: 40px;" src="imagenes/tren.png" alt=""></div>
+                </div>
+
+                <div class="sec-sub-title text-center">
+                </div>
+        
+                <div>
+                    <table>
+                        <tr>
+                            <td>
+                                <input type="text" name="" id="nombreTarifa" placeholder="Nombre Tarifa">
+                            </td>
+                            <td><div style="width: 20px;"></div></td>
+                            <td>
+                                <input type="text" name="" id="precioTarifa" placeholder="Valor Precio">
+                            </td>
+                            <td><div style="width: 20px;"></div></td>
+                            <td>
+                                <div id="opcionesEstadoTarifa"></div>
+                            </td>
+                            <td><div style="width: 20px;"></div></td>
+                            <td>
+                                <button style="display: flex;
+                                align-items: center; justify-content: center; margin-top:5px; margin-left:10px ;" type="button" class="btn" onclick="insertarTarifa()"> 
+                                <div></div>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                Insertar
+                                </button>
+                            </td>
+                            
+                        </tr>
+                    </table>
+                </div>
+                <div id="resultadoError2"></div>
+                <br>
+                
+                <div id="tarifaResultado">
+                </div>
+
             </div>
-    
-            <!--<div class="project-wrapper">
-    
-                <figure class="mix work-item branding">
-                    <img src="img/works/item-1.jpg" alt="">
-                    <figcaption class="overlay">
-                        <a class="fancybox" rel="works" title="Write Your Image Caption Here" href="img/works/item-1.jpg"><i
-                                class="fa fa-eye fa-lg"></i></a>
-                        <h4>Labore et dolore magnam</h4>
-                        <p>Photography</p>
-                    </figcaption>
-                </figure>
-    
-                <figure class="mix work-item web">
-                    <img src="img/works/item-2.jpg" alt="">
-                    <figcaption class="overlay">
-                        <a class="fancybox" rel="works" title="Write Your Image Caption Here" href="img/works/item-2.jpg"><i
-                                class="fa fa-eye fa-lg"></i></a>
-                        <h4>Labore et dolore magnam</h4>
-                        <p>Photography</p>
-                    </figcaption>
-                </figure>
-    
-                <figure class="mix work-item logo-design">
-                    <img src="img/works/item-3.jpg" alt="">
-                    <figcaption class="overlay">
-                        <a class="fancybox" rel="works" title="Write Your Image Caption Here" href="img/works/item-3.jpg"><i
-                                class="fa fa-eye fa-lg"></i></a>
-                        <h4>Labore et dolore magnam</h4>
-                        <p>Photography</p>
-                    </figcaption>
-                </figure>
-    
-                <figure class="mix work-item photography">
-                    <img src="img/works/item-4.jpg" alt="">
-                    <figcaption class="overlay">
-                        <a class="fancybox" rel="works" title="Write Your Image Caption Here" href="img/works/item-4.jpg"><i
-                                class="fa fa-eye fa-lg"></i></a>
-                        <h4>Labore et dolore magnam</h4>
-                        <p>Photography</p>
-                    </figcaption>
-                </figure>
-    
-                <figure class="mix work-item branding">
-                    <img src="img/works/item-5.jpg" alt="">
-                    <figcaption class="overlay">
-                        <a class="fancybox" rel="works" title="Write Your Image Caption Here" href="img/works/item-5.jpg"><i
-                                class="fa fa-eye fa-lg"></i></a>
-                        <h4>Labore et dolore magnam</h4>
-                        <p>Photography</p>
-                    </figcaption>
-                </figure>
-    
-                <figure class="mix work-item web">
-                    <img src="img/works/item-6.jpg" alt="">
-                    <figcaption class="overlay">
-                        <a class="fancybox" rel="works" title="Write Your Image Caption Here" href="img/works/item-6.jpg"><i
-                                class="fa fa-eye fa-lg"></i></a>
-                        <h4>Labore et dolore magnam</h4>
-                        <p>Photography</p>
-                    </figcaption>
-                </figure>
-    
-                <figure class="mix work-item logo-design">
-                    <img src="img/works/item-7.jpg" alt="">
-                    <figcaption class="overlay">
-                        <a class="fancybox" rel="works" title="Write Your Image Caption Here" href="img/works/item-7.jpg"><i
-                                class="fa fa-eye fa-lg"></i></a>
-                        <h4>Labore et dolore magnam</h4>
-                        <p>Photography</p>
-                    </figcaption>
-                </figure>
-    
-                <figure class="mix work-item photography">
-                    <img src="img/works/item-8.jpg" alt="">
-                    <figcaption class="overlay">
-                        <a class="fancybox" rel="works" title="Write Your Image Caption Here" href="img/works/item-8.jpg"><i
-                                class="fa fa-eye fa-lg"></i></a>
-                        <h4>Labore et dolore magnam</h4>
-                        <p>Photography</p>
-                    </figcaption>
-                </figure>
-    
-            </div>-->
-    
-    
-        </section>
+        </div>
+    </section>
+
+    <section id="pasajeros" class="works clearfix" style="background-color: rgb(238, 238, 238);">
+        <div class="container">
+            <div class="row">
+
+                <div class="sec-title text-center">
+                    <h2>Pasajeros</h2>
+                    <div class="devider"><img style="width: 40px; height: 40px;" src="imagenes/tren.png" alt=""></div>
+                </div>
+
+                <div class="sec-sub-title text-center">
+                </div>
+
+                <div id="resultadoError3"></div>
+                <br>
+                
+                <div id="pasajerosResultado">
+                </div>
+
+            </div>
+        </div>
+    </section>
 
     <!--
         Contact Us

@@ -165,6 +165,9 @@
         function linea1(){
             window.location.href = "https://www.lineauno.pe/";
         }
+        function salir(){
+            window.location.href = "sesion.html";
+        }
     </script>
 
 
@@ -181,8 +184,8 @@
     <!-- 
         Fixed Navigation
         ==================================== -->
-    <header id="navigation" class="navbar-fixed-top navbar">
-        <div class="container">
+    <header id="navigation" class="navbar-fixed-top navbar" style="width: 100%;">
+        <div class="container" style="width: 100%;">
             <div class="navbar-header">
                 <!-- responsive nav button -->
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -220,15 +223,24 @@
                     <li class="current"><a href="#body">Inicio</a></li>
                     <li><a href="#horarios">Horarios</a></li>
                     <li><a href="#qr">Solicitar QR</a></li>
-                    <li><a href="#team">Tarifas</a></li>
+                    <li><a href="#tarifas">Tarifas</a></li>
                     <li><a href="#misViajes">Mis Viajes</a></li>
-                    <li><a href="http://google.com">Contactos</a></li>
+                    <li><a href="#contactos">Contactos</a></li>
+                    <li> <button style="border-radius:50%; width:40px; height:40px; display: flex;
+                        align-items: center; justify-content: center; margin-top:5px; margin-left:10px;"   type="button" class="btn" onclick="salir()"> 
+                        <div><img src="imagenes\exito2.png" alt="" style="width:25px; height:25px; " /></div>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button></li>
                 </ul>
             </nav>
             <!-- /main nav -->
 
         </div>
     </header>
+    
     <!--
         End Fixed Navigation
         ==================================== -->
@@ -474,8 +486,7 @@
                 </div>
 
                 <div class="sec-sub-title text-center">
-                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
-                        totam rem aperiam, eaque ipsa quae ab illo inventore</p>
+                    <p>La Linea 2 Metro de Lima tiene las siguientes tarifas disponibles</p>
                 </div>
                 
                 <div id="tarifaResultado">
@@ -506,7 +517,7 @@
         Contact Us
         ==================================== -->
 
-    <section id="contact" class="contact">
+    <section id="contactos" class="contact">
         <div class="container">
             <div class="row mb50">
 
