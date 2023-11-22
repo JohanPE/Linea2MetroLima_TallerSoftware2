@@ -1,316 +1,165 @@
--- MySQL dump 10.13  Distrib 8.0.19, for Win64 (x86_64)
---
--- Host: localhost    Database: bdmetro
--- ------------------------------------------------------
--- Server version	5.5.5-10.4.28-MariaDB
+CREATE DATABASE bdMetro;
+drop database bdmetro;
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8mb4 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+USE bdMetro;
 
---
--- Table structure for table `distrito`
---
+-- Crear la tabla estadotarifa
+CREATE TABLE estadotarifa (
+  idestadotarifa INT NOT NULL,
+  nombre VARCHAR(100) DEFAULT NULL,
+  glosa VARCHAR(100) DEFAULT NULL,
+  PRIMARY KEY (idestadotarifa)
+);
 
-DROP TABLE IF EXISTS `distrito`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `distrito` (
-  `distrito` char(10) NOT NULL,
-  `nombre_distrito` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`distrito`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+-- Crear la tabla tarifa
+CREATE TABLE tarifa (
+  idtarifa INT NOT NULL,
+  nombre VARCHAR(100) NULL,
+  precio DECIMAL(10, 2) DEFAULT 0.00,
+  idestadotarifa INT NULL,
+  PRIMARY KEY (idtarifa),
+  FOREIGN KEY (idestadotarifa) REFERENCES estadotarifa(idestadotarifa)
+);
+INSERT INTO estadotarifa (idestadotarifa, nombre, glosa) VALUES (1, 'Publico en general', 'Tarifa regular para adultos');
+INSERT INTO estadotarifa (idestadotarifa, nombre, glosa) VALUES (2, 'Estudiante', 'Tarifa reducida para estudiantes');
 
---
--- Dumping data for table `distrito`
---
+INSERT INTO tarifa (idtarifa, nombre, precio, idestadotarifa) VALUES (1, 'Tarifa General', 1.50, 1);
+INSERT INTO tarifa (idtarifa, nombre, precio, idestadotarifa) VALUES (2, 'Tarifa Estudiante', 0.75, 2);
 
-LOCK TABLES `distrito` WRITE;
-/*!40000 ALTER TABLE `distrito` DISABLE KEYS */;
-INSERT INTO `distrito` VALUES ('01','Ancón'),('02','Ate'),('03','Barranco'),('04','Breña'),('05','Carabayllo'),('06','Cercado de Lima'),('07','Chaclacayo'),('08','Chorrillos'),('09','Cieneguilla'),('10','Comas'),('11','El Agustino'),('12','Independencia'),('13','Jesus María'),('14','La Molina'),('15','La victoria'),('16','Lince'),('17','Los Olivos'),('18','Lurigancho'),('19','Lurín'),('20','Magdalena del Mar'),('21','Miraflores'),('22','Pachacamac'),('23','Pucusana'),('24','Pueblo libre'),('25','Puente piedra'),('26','Punta hermosa'),('27','Punta negra'),('28','Rímac'),('29','San bartolo'),('30','San Borja'),('31','San Isidro'),('32','San Juan de Lurigancho'),('33','San Juan de Miraflores'),('34','San Luis'),('35','San Martin de Porres'),('36','San Miguel'),('37','Santa Anita'),('38','Santa María del Mar'),('39','Santa Rosa'),('40','Santiago de Surco'),('41','Surquillo'),('42','Villa el Salvador'),('43','Villa María del Triunfo');
-/*!40000 ALTER TABLE `distrito` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `estadotarifa`
---
+-- Crear la tabla tipodedocumento
+CREATE TABLE tipodedocumento (
+	idtipodoc VARCHAR(8) PRIMARY KEY,
+    nombre_tipodoc VARCHAR(500),
+    glosa_tipodoc VARCHAR(500)
+);
 
-DROP TABLE IF EXISTS `estadotarifa`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `estadotarifa` (
-  `idestadotarifa` int(11) NOT NULL,
-  `nombre` varchar(100) DEFAULT NULL,
-  `glosa` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`idestadotarifa`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+INSERT INTO tipodedocumento (idtipodoc, nombre_tipodoc, glosa_tipodoc) VALUES ('01', 'Documento Nacional de Identidad', 'DNI');
+INSERT INTO tipodedocumento (idtipodoc, nombre_tipodoc, glosa_tipodoc) VALUES ('02', 'Registro Único de Contribuyentes', 'RUC');
+INSERT INTO tipodedocumento (idtipodoc, nombre_tipodoc, glosa_tipodoc) VALUES ('03', 'Carnet de Extranjería', 'CE');
 
---
--- Dumping data for table `estadotarifa`
---
+CREATE TABLE distrito (
+  distrito VARCHAR(50) NOT NULL,
+  nombre_distrito varchar(100) DEFAULT NULL,
+  PRIMARY KEY (distrito)
+);
 
-LOCK TABLES `estadotarifa` WRITE;
-/*!40000 ALTER TABLE `estadotarifa` DISABLE KEYS */;
-INSERT INTO `estadotarifa` VALUES (1,'Publico en general','Tarifa regular para adultos'),(2,'Estudiante','Tarifa reducida para estudiantes');
-/*!40000 ALTER TABLE `estadotarifa` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO distrito VALUES ('01','Ancón'),('02','Ate'),('03','Barranco'),('04','Breña'),('05','Carabayllo'),('06','Cercado de Lima'),('07','Chaclacayo'),('08','Chorrillos'),('09','Cieneguilla'),('10','Comas'),('11','El Agustino'),('12','Independencia'),('13','Jesus María'),('14','La Molina'),('15','La victoria'),('16','Lince'),('17','Los Olivos'),('18','Lurigancho'),('19','Lurín'),('20','Magdalena del Mar'),('21','Miraflores'),('22','Pachacamac'),('23','Pucusana'),('24','Pueblo libre'),('25','Puente piedra'),('26','Punta hermosa'),('27','Punta negra'),('28','Rímac'),('29','San bartolo'),('30','San Borja'),('31','San Isidro'),('32','San Juan de Lurigancho'),('33','San Juan de Miraflores'),('34','San Luis'),('35','San Martin de Porres'),('36','San Miguel'),('37','Santa Anita'),('38','Santa María del Mar'),('39','Santa Rosa'),('40','Santiago de Surco'),('41','Surquillo'),('42','Villa el Salvador'),('43','Villa María del Triunfo');
 
---
--- Table structure for table `pasajeros`
---
 
-DROP TABLE IF EXISTS `pasajeros`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `pasajeros` (
-  `N_identificacion` int(11) NOT NULL,
-  `numero_pasajero` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(50) NOT NULL,
-  `apellido` varchar(50) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `distrito` varchar(50) NOT NULL,
-  `domicilio` varchar(100) DEFAULT NULL,
-  `telefono` bigint(20) DEFAULT NULL,
-  `fechanac` date DEFAULT NULL,
-  `estudiante` varchar(10) DEFAULT NULL,
-  `idtipodoc` varchar(8) DEFAULT NULL,
-  `id_tarifa` int(11) DEFAULT NULL,
-  PRIMARY KEY (`N_identificacion`),
-  UNIQUE KEY `numero_pasajero` (`numero_pasajero`),
-  KEY `idtipodoc` (`idtipodoc`),
-  KEY `id_tarifa` (`id_tarifa`),
-  CONSTRAINT `pasajeros_ibfk_1` FOREIGN KEY (`idtipodoc`) REFERENCES `tipodedocumento` (`idtipodoc`),
-  CONSTRAINT `pasajeros_ibfk_2` FOREIGN KEY (`id_tarifa`) REFERENCES `tarifa` (`idtarifa`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+-- Crear la tabla pasajeros
+CREATE TABLE pasajeros (
+	numero_pasajero INT AUTO_INCREMENT UNIQUE,
+	idtipodoc VARCHAR(8),
+    N_identificacion INT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    apellido VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    id_distrito VARCHAR(50) NOT NULL,
+    domicilio VARCHAR(100),
+    telefono BIGINT,
+    fechanac DATE,
+    estudiante VARCHAR(10),
+    id_tarifa INT,
+    FOREIGN KEY (idtipodoc) REFERENCES tipodedocumento(idtipodoc),
+    FOREIGN KEY (id_tarifa) REFERENCES tarifa(idtarifa),
+	FOREIGN KEY (id_distrito) REFERENCES distrito(distrito) -- Clave foránea a la tabla distrito
+);
 
---
--- Dumping data for table `pasajeros`
---
+-- Crear la tabla usuario
+CREATE TABLE usuario (
+	id_usuario VARCHAR(100) PRIMARY KEY,
+    usuario VARCHAR(50) UNIQUE,
+    contrasenia VARCHAR(100) NOT NULL,
+    saldo DECIMAL(10, 2) DEFAULT 0.00,
+    dni INT UNIQUE,
+    FOREIGN KEY (dni) REFERENCES pasajeros(N_identificacion)
+);
 
-LOCK TABLES `pasajeros` WRITE;
-/*!40000 ALTER TABLE `pasajeros` DISABLE KEYS */;
-/*!40000 ALTER TABLE `pasajeros` ENABLE KEYS */;
-UNLOCK TABLES;
+-- Crear la tabla recorrido
+CREATE TABLE recorrido (
+	id_recorrido INT AUTO_INCREMENT PRIMARY KEY,
+    gastos DECIMAL(10, 2) DEFAULT 0.00,
+    fecha_viaje DATETIME,
+    id_usuario VARCHAR(100),
+    id_tarifa INT,
+    FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
+    FOREIGN KEY (id_tarifa) REFERENCES tarifa(idtarifa)
+);
 
---
--- Table structure for table `recorrido`
---
+/*---------------------------------------------------------------*/
+CREATE TABLE trabajador (
+	idtrabajador INT AUTO_INCREMENT UNIQUE,
+	idtipodoc VARCHAR(8),
+    N_identificacion INT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    apellido VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    id_distrito VARCHAR(50) NOT NULL,
+    domicilio VARCHAR(100),
+    telefono BIGINT,
+    fechanac DATE,
+    FOREIGN KEY (idtipodoc) REFERENCES tipodedocumento(idtipodoc),
+	FOREIGN KEY (id_distrito) REFERENCES distrito(distrito) 
+);
 
-DROP TABLE IF EXISTS `recorrido`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `recorrido` (
-  `id_recorrido` int(11) NOT NULL AUTO_INCREMENT,
-  `gastos` decimal(10,2) DEFAULT 0.00,
-  `fecha_viaje` datetime DEFAULT NULL,
-  `id_usuario` varchar(100) DEFAULT NULL,
-  `id_tarifa` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id_recorrido`),
-  KEY `id_usuario` (`id_usuario`),
-  KEY `id_tarifa` (`id_tarifa`),
-  CONSTRAINT `recorrido_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`),
-  CONSTRAINT `recorrido_ibfk_2` FOREIGN KEY (`id_tarifa`) REFERENCES `tarifa` (`idtarifa`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+CREATE TABLE usuariotrabajador (
+	idtrabajador int NOT NULL,
+	usuario varchar(500) NULL unique,
+	clave varchar(500) NULL,
+	CONSTRAINT usuariotrabajador_pk PRIMARY KEY (idtrabajador),
+	CONSTRAINT usuariotrabajador_FK FOREIGN KEY (idtrabajador) REFERENCES trabajador(idtrabajador)
+);
 
---
--- Dumping data for table `recorrido`
---
+CREATE TABLE rol (
+	idrol INT NOT NULL,
+	nombrerol varchar(100) NULL,
+	CONSTRAINT rol_pk PRIMARY KEY (idrol)
+);
 
-LOCK TABLES `recorrido` WRITE;
-/*!40000 ALTER TABLE `recorrido` DISABLE KEYS */;
-/*!40000 ALTER TABLE `recorrido` ENABLE KEYS */;
-UNLOCK TABLES;
+ALTER TABLE usuariotrabajador ADD idrol INT NULL;
 
---
--- Table structure for table `rol`
---
+ALTER TABLE usuariotrabajador ADD CONSTRAINT usuariotrabajador_FK_1 FOREIGN KEY (idrol) REFERENCES rol(idrol);
 
-DROP TABLE IF EXISTS `rol`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `rol` (
-  `idrol` int(11) NOT NULL,
-  `nombrerol` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`idrol`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+INSERT INTO rol
+(idrol, nombrerol)
+VALUES(1, 'administrador');
+INSERT INTO rol
+(idrol, nombrerol)
+VALUES(2, 'trabajador');
 
---
--- Dumping data for table `rol`
---
 
-LOCK TABLES `rol` WRITE;
-/*!40000 ALTER TABLE `rol` DISABLE KEYS */;
-INSERT INTO `rol` VALUES (1,'administrador'),(2,'trabajador');
-/*!40000 ALTER TABLE `rol` ENABLE KEYS */;
-UNLOCK TABLES;
+CREATE TABLE horario(
+	idhorario INT NOT NULL auto_increment PRIMARY KEY,
+    hora TIME
+);
 
---
--- Table structure for table `tarifa`
---
+INSERT INTO horario (hora) VALUES 
+('05:00:00'), ('05:05:00'), ('05:10:00'), ('05:15:00'), ('05:20:00'), ('05:25:00'), ('05:30:00'), ('05:35:00'), ('05:40:00'), ('05:45:00'), ('05:50:00'), ('05:55:00'),
+('06:00:00'), ('06:05:00'), ('06:10:00'), ('06:15:00'), ('06:20:00'), ('06:25:00'), ('06:30:00'), ('06:35:00'), ('06:40:00'), ('06:45:00'), ('06:50:00'), ('06:55:00'),
+('07:00:00'), ('07:05:00'), ('07:10:00'), ('07:15:00'), ('07:20:00'), ('07:25:00'), ('07:30:00'), ('07:35:00'), ('07:40:00'), ('07:45:00'), ('07:50:00'), ('07:55:00'),
+('08:00:00'), ('08:05:00'), ('08:10:00'), ('08:15:00'), ('08:20:00'), ('08:25:00'), ('08:30:00'), ('08:35:00'), ('08:40:00'), ('08:45:00'), ('08:50:00'), ('08:55:00'),
+('09:00:00'), ('09:05:00'), ('09:10:00'), ('09:15:00'), ('09:20:00'), ('09:25:00'), ('09:30:00'), ('09:35:00'), ('09:40:00'), ('09:45:00'), ('09:50:00'), ('09:55:00'),
+('10:00:00'), ('10:05:00'), ('10:10:00'), ('10:15:00'), ('10:20:00'), ('10:25:00'), ('10:30:00'), ('10:35:00'), ('10:40:00'), ('10:45:00'), ('10:50:00'), ('10:55:00'),
+('11:00:00'), ('11:05:00'), ('11:10:00'), ('11:15:00'), ('11:20:00'), ('11:25:00'), ('11:30:00'), ('11:35:00'), ('11:40:00'), ('11:45:00'), ('11:50:00'), ('11:55:00'),
+('12:00:00'), ('12:05:00'), ('12:10:00'), ('12:15:00'), ('12:20:00'), ('12:25:00'), ('12:30:00'), ('12:35:00'), ('12:40:00'), ('12:45:00'), ('12:50:00'), ('12:55:00'),
+('13:00:00'), ('13:05:00'), ('13:10:00'), ('13:15:00'), ('13:20:00'), ('13:25:00'), ('13:30:00'), ('13:35:00'), ('13:40:00'), ('13:45:00'), ('13:50:00'), ('13:55:00'),
+('14:00:00'), ('14:05:00'), ('14:10:00'), ('14:15:00'), ('14:20:00'), ('14:25:00'), ('14:30:00'), ('14:35:00'), ('14:40:00'), ('14:45:00'), ('14:50:00'), ('14:55:00'),
+('15:00:00'), ('15:05:00'), ('15:10:00'), ('15:15:00'), ('15:20:00'), ('15:25:00'), ('15:30:00'), ('15:35:00'), ('15:40:00'), ('15:45:00'), ('15:50:00'), ('15:55:00'),
+('16:00:00'), ('16:05:00'), ('16:10:00'), ('16:15:00'), ('16:20:00'), ('16:25:00'), ('16:30:00'), ('16:35:00'), ('16:40:00'), ('16:45:00'), ('16:50:00'), ('16:55:00'),
+('17:00:00'), ('17:05:00'), ('17:10:00'), ('17:15:00'), ('17:20:00'), ('17:25:00'), ('17:30:00'), ('17:35:00'), ('17:40:00'), ('17:45:00'), ('17:50:00'), ('17:55:00'),
+('18:00:00'), ('18:05:00'), ('18:10:00'), ('18:15:00'), ('18:20:00'), ('18:25:00'), ('18:30:00'), ('18:35:00'), ('18:40:00'), ('18:45:00'), ('18:50:00'), ('18:55:00'),
+('19:00:00'), ('19:05:00'), ('19:10:00'), ('19:15:00'), ('19:20:00'), ('19:25:00'), ('19:30:00'), ('19:35:00'), ('19:40:00'), ('19:45:00'), ('19:50:00'), ('19:55:00'),
+('20:00:00'), ('20:05:00'), ('20:10:00'), ('20:15:00'), ('20:20:00'), ('20:25:00'), ('20:30:00'), ('20:35:00'), ('20:40:00'), ('20:45:00'), ('20:50:00'), ('20:55:00'),
+('21:00:00'), ('21:05:00'), ('21:10:00'), ('21:15:00'), ('21:20:00'), ('21:25:00'), ('21:30:00'), ('21:35:00'), ('21:40:00'), ('21:45:00'), ('21:50:00'), ('21:55:00'),
+('22:00:00'), ('22:05:00'), ('22:10:00'), ('22:15:00'), ('22:20:00'), ('22:25:00'), ('22:30:00'), ('22:35:00'), ('22:40:00'), ('22:45:00'), ('22:50:00'), ('22:55:00'),
+('23:00:00');
 
-DROP TABLE IF EXISTS `tarifa`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `tarifa` (
-  `idtarifa` int(11) NOT NULL,
-  `nombre` varchar(100) DEFAULT NULL,
-  `precio` decimal(10,2) DEFAULT 0.00,
-  `idestadotarifa` int(11) DEFAULT NULL,
-  PRIMARY KEY (`idtarifa`),
-  KEY `idestadotarifa` (`idestadotarifa`),
-  CONSTRAINT `tarifa_ibfk_1` FOREIGN KEY (`idestadotarifa`) REFERENCES `estadotarifa` (`idestadotarifa`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `tarifa`
---
+CREATE TABLE mensaje(
+	idmensaje INT NOT NULL auto_increment PRIMARY KEY,
+    nombre_persona VARCHAR(500) NOT NULL,
+    email_persona VARCHAR(500) NOT NULL,
+    mensaje VARCHAR(3000) NOT NULL
+);
 
-LOCK TABLES `tarifa` WRITE;
-/*!40000 ALTER TABLE `tarifa` DISABLE KEYS */;
-INSERT INTO `tarifa` VALUES (1,'Tarifa General',1.50,1),(2,'Tarifa Estudiante',0.75,2);
-/*!40000 ALTER TABLE `tarifa` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `tipodedocumento`
---
-
-DROP TABLE IF EXISTS `tipodedocumento`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `tipodedocumento` (
-  `idtipodoc` varchar(8) NOT NULL,
-  `nombre_tipodoc` varchar(500) DEFAULT NULL,
-  `glosa_tipodoc` varchar(500) DEFAULT NULL,
-  PRIMARY KEY (`idtipodoc`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tipodedocumento`
---
-
-LOCK TABLES `tipodedocumento` WRITE;
-/*!40000 ALTER TABLE `tipodedocumento` DISABLE KEYS */;
-INSERT INTO `tipodedocumento` VALUES ('1','Documento Nacional de Identidad','DNI'),('2','Pasaporte','PST'),('3','Carnet de Extranjeria','CE');
-/*!40000 ALTER TABLE `tipodedocumento` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `trabajador`
---
-
-DROP TABLE IF EXISTS `trabajador`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `trabajador` (
-  `idtrabajador` int(11) NOT NULL,
-  `idtipodoc` varchar(8) DEFAULT NULL,
-  `numdocidentidad` varchar(100) DEFAULT NULL,
-  `apepat` varchar(400) DEFAULT NULL,
-  `apemat` varchar(400) DEFAULT NULL,
-  `nombre` varchar(400) DEFAULT NULL,
-  `email` varchar(400) DEFAULT NULL,
-  `fechanacimiento` date DEFAULT NULL,
-  `telefono` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`idtrabajador`),
-  KEY `trabajador_FK` (`idtipodoc`),
-  CONSTRAINT `trabajador_FK` FOREIGN KEY (`idtipodoc`) REFERENCES `tipodedocumento` (`idtipodoc`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `trabajador`
---
-
-LOCK TABLES `trabajador` WRITE;
-/*!40000 ALTER TABLE `trabajador` DISABLE KEYS */;
-INSERT INTO `trabajador` VALUES (1,'1','12312343','PEREZ','PEREZ','JUAN','jperez@gmail.com',NULL,'123123123'),(2,'1','32132112','DIAZ','DIAZ','JORGE','jdiaz@gmail.com',NULL,'32132123');
-/*!40000 ALTER TABLE `trabajador` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `usuario`
---
-
-DROP TABLE IF EXISTS `usuario`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `usuario` (
-  `id_usuario` varchar(100) NOT NULL,
-  `usuario` varchar(50) DEFAULT NULL,
-  `contrasenia` varchar(100) NOT NULL,
-  `saldo` decimal(10,2) DEFAULT 0.00,
-  `dni` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id_usuario`),
-  UNIQUE KEY `usuario` (`usuario`),
-  UNIQUE KEY `dni` (`dni`),
-  CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`dni`) REFERENCES `pasajeros` (`N_identificacion`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `usuario`
---
-
-LOCK TABLES `usuario` WRITE;
-/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `usuariotrabajador`
---
-
-DROP TABLE IF EXISTS `usuariotrabajador`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `usuariotrabajador` (
-  `idtrabajador` int(11) NOT NULL,
-  `usuario` varchar(500) DEFAULT NULL,
-  `clave` varchar(500) DEFAULT NULL,
-  `idrol` int(11) DEFAULT NULL,
-  PRIMARY KEY (`idtrabajador`),
-  KEY `usuariotrabajador_FK_1` (`idrol`),
-  CONSTRAINT `usuariotrabajador_FK` FOREIGN KEY (`idtrabajador`) REFERENCES `trabajador` (`idtrabajador`),
-  CONSTRAINT `usuariotrabajador_FK_1` FOREIGN KEY (`idrol`) REFERENCES `rol` (`idrol`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `usuariotrabajador`
---
-
-LOCK TABLES `usuariotrabajador` WRITE;
-/*!40000 ALTER TABLE `usuariotrabajador` DISABLE KEYS */;
-INSERT INTO `usuariotrabajador` VALUES (1,'jperez','25d55ad283aa400af464c76d713c07ad',1),(2,'jdiaz','25d55ad283aa400af464c76d713c07ad',2);
-/*!40000 ALTER TABLE `usuariotrabajador` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping routines for database 'bdmetro'
---
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2023-11-08 19:17:06
